@@ -2,15 +2,14 @@
 @use '@/common/mixins' as mixins;
 @import "@/common/templates";
 
-.textLink {
+.textButton {
   @extend %seventeen-semibold-template;
   text-decoration: none;
   transition: all 0.2s;
+  color: $accent-color;
 
   &:hover {
-    color: $accent-color;
+    opacity: 0.6;
     transition: all 0.2s;
-    transform: none;
-    box-shadow: none;
   }
 }

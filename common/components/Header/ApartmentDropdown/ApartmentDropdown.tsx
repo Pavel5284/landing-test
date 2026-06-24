@@ -2,9 +2,11 @@
 
 import {createContext, FC, useContext, useRef, useState} from 'react';
 import Select, {components, GroupBase} from 'react-select';
-import type {SingleValueProps, PlaceholderProps, ControlProps} from 'react-select';
+import type {SingleValueProps, PlaceholderProps, ControlProps, DropdownIndicatorProps} from 'react-select';
 import {useRouter} from 'next/navigation';
+import Image from 'next/image';
 import styles from './ApartmentDropdown.module.scss';
+import chevronDown from '@/public/images/commonIcons/chevron-down.svg';
 
 interface OptionType {
     label: string;
@@ -42,8 +44,8 @@ const CustomControl = (props: ControlProps<OptionType, false, GroupBase<OptionTy
 
 const AnimatedLabel = ({children}: {children: React.ReactNode}) => (
     <div className={styles.animatedLabel}>
-        <span>{children}</span>
-        <span>{children}</span>
+        <span className={styles.animatedLabelSpan}>{children}</span>
+        <span className={styles.animatedLabelSpan}>{children}</span>
     </div>
 );
 
@@ -59,14 +61,57 @@ const CustomPlaceholder = (props: PlaceholderProps<OptionType, false, GroupBase<
     </components.Placeholder>
 );
 
+const CustomDropdownIndicator = (props: DropdownIndicatorProps<OptionType, false, GroupBase<OptionType>>) => {
+    const isOpen = props.selectProps.menuIsOpen;
+    return (
+        <components.DropdownIndicator {...props}>
+            <Image
+                src={chevronDown}
+                alt=""
+                width={12}
+                height={7}
+                style={{
+                    transition: 'transform 0.25s ease',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}
+            />
+        </components.DropdownIndicator>
+    );
+};
+
 // Стабильный объект — не пересоздаётся при каждом рендере
 const customComponents = {
     SingleValue: CustomSingleValue,
     Placeholder: CustomPlaceholder,
     Control: CustomControl,
+    DropdownIndicator: CustomDropdownIndicator,
 };
 
 const ANIMATION_DURATION = 200;
+
+const customStyles = {
+    valueContainer: (base: Record<string, unknown>) => ({
+        ...base,
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+    }),
+    input: (base: Record<string, unknown>) => ({
+        ...base,
+        height: 0,
+        minHeight: 0,
+        overflow: 'hidden',
+        padding: 0,
+        margin: 0,
+        border: 0,
+    }),
+    dropdownIndicator: (base: Record<string, unknown>) => ({
+        ...base,
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+    }),
+};
 
 export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenChange, isActive}) => {
     const [hovered, setHovered] = useState(false);
@@ -103,12 +148,14 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
                     options={apartmentOptions}
                     unstyled
                     instanceId="apartment-select"
+                    styles={customStyles}
                     classNames={{
                         container: () => styles.container,
                         control: () => styles.control,
                         valueContainer: () => styles.valueContainer,
                         singleValue: () => styles.singleValue,
                         placeholder: () => styles.placeholder,
+                        input: () => styles.dummyInput,
                         dropdownIndicator: (state) =>
                             state.selectProps.menuIsOpen ? styles.indicatorOpen : styles.indicator,
                         indicatorSeparator: () => styles.indicatorSeparator,

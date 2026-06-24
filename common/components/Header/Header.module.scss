@@ -50,34 +50,6 @@
   flex-shrink: 0;
 }
 
-.phoneLink {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a1a1a;
-  text-decoration: none;
-  white-space: nowrap;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #1a6cff;
-  }
-}
-
-.callbackLink {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  color: #1a6cff;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-
-  &:hover {
-    opacity: 0.75;
-  }
-}
-
 /* ─── Full-screen nav menu ───────────────────────────────── */
 .fullMenu {
   position: fixed;

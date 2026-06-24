@@ -9,6 +9,8 @@ import {ApartmentDropdown} from './ApartmentDropdown/ApartmentDropdown';
 import {BurgerBtn} from './BurgerBtn/BurgerBtn';
 import type {DropdownItemData} from './Header.types';
 import defaultLogoSvg from '@/public/logo.svg'
+import {TextLink} from "@/common/components/ui/TextLink/TextLink";
+import {TextButton} from "@/common/components/ui/TextButton/TextButton";
 
 const menuItems: DropdownItemData[] = [
     { label: 'Главная', href: '/' },
@@ -67,12 +69,8 @@ export const Header: FC<{ className?: string }> = ({className}) => {
 
                     {/* Right: phone + callback */}
                     <div className={styles.rightActions}>
-                        <a href={phoneNumber} className={styles.phoneLink}>
-                            {phoneDisplay}
-                        </a>
-                        <Link href={callbackHref} className={styles.callbackLink}>
-                            ЗАКАЗАТЬ ЗВОНОК
-                        </Link>
+                        <TextLink href={phoneNumber}>{phoneDisplay}</TextLink>
+                        <TextButton onClick={()=>true}>ЗАКАЗАТЬ ЗВОНОК</TextButton>
                     </div>
 
                     {/* Mobile toggle (only phone visible on mobile) */}

@@ -24,33 +24,35 @@
 
 .valueContainer {
   padding: 0;
+}
+
+.dummyInput {
+  height: 0;
+  min-height: 0;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 .singleValue {
   color: $white-color;
   margin: 0;
-  position: relative;
-  top: auto;
-  transform: none;
   overflow: visible;
   max-width: none;
+  align-self: center;
 }
 
 .placeholder {
   color: $white-color;
   margin: 0;
-  position: relative;
-  top: auto;
-  transform: none;
   overflow: visible;
+  align-self: center;
 }
 
 .indicator {
   color: $white-color;
   padding: 0;
-  transition: transform 0.25s ease;
-  transform: rotate(0deg);
 
   &:hover {
     color: $white-color;
@@ -58,7 +60,12 @@
 }
 
 .indicatorOpen {
-  transform: rotate(180deg);
+  color: $white-color;
+  padding: 0;
+
+  &:hover {
+    color: $white-color;
+  }
 }
 
 .indicatorSeparator {
@@ -129,35 +136,30 @@
 }
 
 .animatedLabel {
-  overflow: hidden;
-  height: 1em;
-  line-height: 1;
   position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.5;
+  height: 1.4em;
+}
 
-  span {
-    display: block;
-    height: 1em;
-    line-height: 1;
-    transition: transform 0.3s ease;
-  }
+.animatedLabelSpan {
+  display: block;
+  transition: transform 0.3s ease;
+  transform: translateY(0);
 
-  span:first-child {
-    transform: translateY(0);
-  }
-
-  span:last-child {
+  &:last-child {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(100%);
+    transform: translateY(110%);
   }
 }
 
-.aptDropdownHovered .animatedLabel {
-  span:first-child {
-    transform: translateY(-100%);
-  }
-  span:last-child {
-    transform: translateY(0);
-  }
+.aptDropdownHovered .animatedLabelSpan:first-child {
+  transform: translateY(-110%);
+}
+
+.aptDropdownHovered .animatedLabelSpan:last-child {
+  transform: translateY(0);
 }
