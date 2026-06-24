@@ -1,6 +1,6 @@
 "use client"
 
-import {createContext, FC, useContext, useRef, useState} from 'react';
+import React, {createContext, FC, useContext, useRef, useState} from 'react';
 import Select, {components, GroupBase} from 'react-select';
 import type {SingleValueProps, PlaceholderProps, ControlProps, DropdownIndicatorProps} from 'react-select';
 import {useRouter} from 'next/navigation';
@@ -89,30 +89,6 @@ const customComponents = {
 
 const ANIMATION_DURATION = 200;
 
-const customStyles = {
-    valueContainer: (base: Record<string, unknown>) => ({
-        ...base,
-        padding: 0,
-        display: 'flex',
-        alignItems: 'center',
-    }),
-    input: (base: Record<string, unknown>) => ({
-        ...base,
-        height: 0,
-        minHeight: 0,
-        overflow: 'hidden',
-        padding: 0,
-        margin: 0,
-        border: 0,
-    }),
-    dropdownIndicator: (base: Record<string, unknown>) => ({
-        ...base,
-        padding: 0,
-        display: 'flex',
-        alignItems: 'center',
-    }),
-};
-
 export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenChange, isActive}) => {
     const [hovered, setHovered] = useState(false);
     const [closing, setClosing] = useState(false);
@@ -148,16 +124,12 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
                     options={apartmentOptions}
                     unstyled
                     instanceId="apartment-select"
-                    styles={customStyles}
                     classNames={{
                         container: () => styles.container,
                         control: () => styles.control,
                         valueContainer: () => styles.valueContainer,
                         singleValue: () => styles.singleValue,
                         placeholder: () => styles.placeholder,
-                        input: () => styles.dummyInput,
-                        dropdownIndicator: (state) =>
-                            state.selectProps.menuIsOpen ? styles.indicatorOpen : styles.indicator,
                         indicatorSeparator: () => styles.indicatorSeparator,
                         menu: () => `${styles.menu} ${closing ? styles.menuClosing : ''}`,
                         menuList: () => styles.menuList,
