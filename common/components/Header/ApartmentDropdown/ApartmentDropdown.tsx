@@ -1,6 +1,6 @@
 "use client"
 
-import {createContext, FC, useContext, useState} from 'react';
+import {createContext, FC, useContext, useRef, useState} from 'react';
 import Select, {components, GroupBase} from 'react-select';
 import type {SingleValueProps, PlaceholderProps, ControlProps} from 'react-select';
 import {useRouter} from 'next/navigation';
@@ -66,8 +66,12 @@ const customComponents = {
     Control: CustomControl,
 };
 
+const ANIMATION_DURATION = 200;
+
 export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenChange, isActive}) => {
     const [hovered, setHovered] = useState(false);
+    const [closing, setClosing] = useState(false);
+    const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
     const router = useRouter();
 
     const currentOption = apartmentOptions.find(opt => isActive(opt.value)) ?? null;
@@ -76,6 +80,20 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
         if (option && !isActive(option.value)) {
             router.push(option.value);
         }
+    };
+
+    const handleMenuOpen = () => {
+        if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+        setClosing(false);
+        onOpenChange(true);
+    };
+
+    const handleMenuClose = () => {
+        setClosing(true);
+        closeTimerRef.current = setTimeout(() => {
+            setClosing(false);
+            onOpenChange(false);
+        }, ANIMATION_DURATION);
     };
 
     return (
@@ -94,7 +112,7 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
                         dropdownIndicator: (state) =>
                             state.selectProps.menuIsOpen ? styles.indicatorOpen : styles.indicator,
                         indicatorSeparator: () => styles.indicatorSeparator,
-                        menu: () => styles.menu,
+                        menu: () => `${styles.menu} ${closing ? styles.menuClosing : ''}`,
                         menuList: () => styles.menuList,
                         option: ({ isSelected, isFocused }) =>
                             [styles.option, isSelected && styles.optionSelected, isFocused && styles.optionFocused]
@@ -106,8 +124,8 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
                     placeholder="ВЫБРАТЬ КВАРТИРУ"
                     isSearchable={false}
                     menuIsOpen={isOpen}
-                    onMenuOpen={() => onOpenChange(true)}
-                    onMenuClose={() => onOpenChange(false)}
+                    onMenuOpen={handleMenuOpen}
+                    onMenuClose={handleMenuClose}
                 />
             </HoverCtx.Provider>
         </div>

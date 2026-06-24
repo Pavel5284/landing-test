@@ -6,6 +6,7 @@ import {FC, useState} from 'react';
 import {usePathname} from 'next/navigation';
 import styles from './Header.module.scss';
 import {ApartmentDropdown} from './ApartmentDropdown/ApartmentDropdown';
+import {BurgerBtn} from './BurgerBtn/BurgerBtn';
 import type {DropdownItemData} from './Header.types';
 import defaultLogoSvg from '@/public/logo.svg'
 
@@ -41,18 +42,10 @@ export const Header: FC<{ className?: string }> = ({className}) => {
 
                     {/* Left: burger menu + apartment dropdown */}
                     <div className={styles.leftActions}>
-                        {/* Burger + МЕНЮ */}
-                        <button
-                            className={`${styles.burgerBtn} ${menuOpen ? styles.burgerBtnOpen : ''}`}
-                            onClick={() => { setMenuOpen(prev => !prev); setApartmentOpen(false); }}
-                            aria-label="Открыть меню"
-                            aria-expanded={menuOpen}
-                        >
-                            <span className={styles.burgerIcon}>
-                                <span/><span/><span/>
-                            </span>
-                            <span className={styles.burgerLabel}>МЕНЮ</span>
-                        </button>
+                        <BurgerBtn
+                            isOpen={menuOpen}
+                            onToggle={() => { setMenuOpen(prev => !prev); setApartmentOpen(false); }}
+                        />
 
                         <ApartmentDropdown
                             isOpen={apartmentOpen}

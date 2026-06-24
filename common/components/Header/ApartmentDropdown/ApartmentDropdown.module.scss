@@ -15,9 +15,7 @@
   border: none;
   border-radius: 50px;
   padding: 0.55rem 1.1rem 0.55rem 1.25rem;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  @extend %fifteen-semibold-template;
   cursor: pointer;
   white-space: nowrap;
   min-height: auto;
@@ -78,6 +76,33 @@
   padding: 0.5rem;
   z-index: 1010;
   margin: 0;
+  animation: menuFadeIn 0.2s ease;
+}
+
+.menuClosing {
+  animation: menuFadeOut 0.2s ease forwards;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .menuList {
