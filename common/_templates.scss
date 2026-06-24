@@ -1,0 +1,120 @@
+@use '@/common/mixins';
+@use '@/common/variables' as *;
+
+
+%sixty-medium-template {
+    @include mixins.adaptiveValue('font-size', 60, 38);
+    line-height: normal;
+    font-weight: 500;
+    color: $color-text-primary;
+}
+
+%sixty-bold-template {
+    @include mixins.adaptiveValue('font-size', 60, 38);
+    line-height: normal;
+    font-weight: 700;
+    color: $color-text-primary;
+}
+
+%forty-eight-bold-template {
+    @include mixins.adaptiveValue('font-size', 48, 32);
+    line-height: normal;
+    font-weight: 700;
+    color: $color-text-primary;
+}
+%forty-bold-template {
+    @include mixins.adaptiveValue('font-size', 40, 28);
+    line-height: normal;
+    font-weight: 700;
+    color: $color-text-primary;
+}
+
+%twenty-six-bold-template {
+    @include mixins.adaptiveValue('font-size', 26, 21);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+%twenty-six-regular-template {
+    @include mixins.adaptiveValue('font-size', 26, 21);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%twenty-four-semibold-template {
+    @include mixins.adaptiveValue('font-size', 24, 20);
+    line-height: normal;
+    font-weight: 600;
+    color: $color-text-primary;
+}
+
+%twenty-four-regular-template {
+    @include mixins.adaptiveValue('font-size', 24, 20);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%twenty-two-medium-template {
+    @include mixins.adaptiveValue('font-size', 22, 18);
+    line-height: normal;
+    font-weight: 500;
+    color: $color-text-primary;
+}
+
+%twenty-semibold-template {
+    @include mixins.adaptiveValue('font-size', 20, 16);
+    line-height: normal;
+    font-weight: 600;
+    color: $color-text-primary;
+}
+%twenty-medium-template {
+    @include mixins.adaptiveValue('font-size', 20, 16);
+    line-height: normal;
+    font-weight: 500;
+    color: $color-text-primary;
+}
+
+%twenty-regular-template {
+    @include mixins.adaptiveValue('font-size', 20, 16);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%eighteen-regular-template {
+    @include mixins.adaptiveValue('font-size', 18, 14);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%sixteen-regular-template {
+    @include mixins.adaptiveValue('font-size', 16, 14);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%fourteen-regular-template {
+    @include mixins.adaptiveValue('font-size', 14, 13);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}
+
+%eighty-eight-extrabold-template {
+    @include mixins.adaptiveValue('font-size', 88, 36);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: $color-text-primary;
+}
+
+%twelve-regular-template {
+    @include mixins.adaptiveValue('font-size', 12, 11);
+    line-height: normal;
+    font-weight: 400;
+    color: $color-text-primary;
+}

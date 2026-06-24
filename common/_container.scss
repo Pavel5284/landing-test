@@ -1,0 +1,43 @@
+@use "sass:math";
+@use "@/common/breakpoints" as common;
+@use "@/common/function" as func;
+
+
+@if (common.$responsiveType == 1) {
+    // Отзывчивая
+    [class*="__container"] {
+        @if (common.$maxWidthContainer > 0) {
+            max-width: func.rem(common.$maxWidthContainer);
+            box-sizing: content-box;
+            margin: 0 auto;
+        }
+        @if (common.$containerPadding > 0) {
+            padding: 0 func.rem(math.div(common.$containerPadding, 2));
+        }
+    }
+} @else {
+    // По брейк-поинтам
+    [class*="__container"] {
+        margin: 0 auto;
+        @if (common.$maxWidthContainer > 0) {
+            max-width: func.rem(common.$maxWidthContainer);
+            box-sizing: content-box;
+        } @else {
+            @if (common.$containerPadding>0) {
+                padding: 0 func.rem(math.div(common.$containerPadding, 2));
+            }
+        }
+        @media (max-width: common.$pc) {
+            max-width: func.rem(970);
+        }
+        @media (max-width: common.$tablet) {
+            max-width: func.rem(750);
+        }
+        @media (max-width: common.$mobile) {
+            max-width: none;
+            @if (common.$containerPadding > 0 and common.$maxWidthContainer > 0) {
+                padding: 0 func.rem(math.div(common.$containerPadding, 2));
+            }
+        }
+    }
+}

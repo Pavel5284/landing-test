@@ -1,0 +1,8 @@
+@use '@/common/mixins';
+
+//  загружает шрифт (@font-face): сообщает браузеру, где лежат woff/woff2 файлы и какой у них weight
+
+@include mixins.font("Proxima Nova", "ProximaNova-Light", "300", "normal");
+@include mixins.font("Proxima Nova", "ProximaNova-Regular", "400", "normal");
+@include mixins.font("Proxima Nova", "ProximaNova-Semibold", "600", "normal");
+@include mixins.font("Proxima Nova", "ProximaNova-Bold", "700", "normal");

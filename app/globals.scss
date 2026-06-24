@@ -1,0 +1,53 @@
+@use '@/common/variables' as variables;
+@use '@/common/breakpoints' as common;
+@use '@/common/null';
+@use '@/common/container';
+@use '@/common/fonts';
+
+:root {
+  --font: #{variables.$font};
+  --fontSize: #{variables.$font-secondary};
+  --bgColor: #{variables.$white-color};
+
+  --minWidth: #{common.$minWidth};
+  --maxWidth: #{common.$maxWidth};
+  --maxWidthContainer: #{common.$maxWidthContainer};
+  --containerPadding: #{common.$containerPadding};
+  --accent: #{variables.$accent-color};
+
+
+  --responsiveType: #{common.$responsiveType};
+  --containerWidth: #{(common.$containerWidth)};
+
+  --pc: #{(common.$pc)};
+  --tablet: #{(common.$tablet)};
+  --mobile: #{(common.$mobile)};
+  --mobileSmall: #{(common.$mobileSmall)};
+}
+
+
+html {
+  background: var(--bgColor) ;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+
+body {
+  font-family: var(--font);
+}
+
+.wrapper {
+  min-height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: clip;
+  //overflow: hidden;
+  //contain: paint;
+
+  // Прижимаем footer
+  > main {
+    flex: 1 1 auto;
+  }
+}

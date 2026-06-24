@@ -1,0 +1,17 @@
+@use '@/common/variables' as *;
+@use '@/common/mixins' as mixins;
+@import "@/common/templates";
+
+.textLink {
+  @extend %sixteen-regular-template;
+  color: $color-accent-brand;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  &:hover {
+    color: $color-label;
+    transition: all 0.2s;
+    transform: none;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,138 @@
+@use '@/common/mixins';
+@use '@/common/variables' as *;
+@import "@/common/templates";
+
+.container {
+  position: relative;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: $accent-color;
+  color: $white-color;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem 0.55rem 1.25rem;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: auto;
+  box-shadow: none;
+}
+
+.valueContainer {
+  padding: 0;
+  overflow: hidden;
+}
+
+.singleValue {
+  color: $white-color;
+  margin: 0;
+  position: relative;
+  top: auto;
+  transform: none;
+  overflow: visible;
+  max-width: none;
+}
+
+.placeholder {
+  color: $white-color;
+  margin: 0;
+  position: relative;
+  top: auto;
+  transform: none;
+  overflow: visible;
+}
+
+.indicator {
+  color: $white-color;
+  padding: 0;
+  transition: transform 0.25s ease;
+  transform: rotate(0deg);
+
+  &:hover {
+    color: $white-color;
+  }
+}
+
+.indicatorOpen {
+  transform: rotate(180deg);
+}
+
+.indicatorSeparator {
+  display: none;
+}
+
+.menu {
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: $white-color;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  min-width: 220px;
+  padding: 0.5rem;
+  z-index: 1010;
+  margin: 0;
+}
+
+.menuList {
+  padding: 0;
+}
+
+.option {
+  padding: 0.6rem 0.9rem;
+  font-size: 14px;
+  color: #1a1a1a;
+  font-weight: 400;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.optionSelected {
+  color: $accent-color;
+  font-weight: 600;
+}
+
+.optionFocused {
+  background: rgba(26, 108, 255, 0.07);
+}
+
+.animatedLabel {
+  overflow: hidden;
+  height: 1em;
+  line-height: 1;
+  position: relative;
+
+  span {
+    display: block;
+    height: 1em;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  span:first-child {
+    transform: translateY(0);
+  }
+
+  span:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(100%);
+  }
+}
+
+.aptDropdownHovered .animatedLabel {
+  span:first-child {
+    transform: translateY(-100%);
+  }
+  span:last-child {
+    transform: translateY(0);
+  }
+}

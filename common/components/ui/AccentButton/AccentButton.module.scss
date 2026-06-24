@@ -1,0 +1,31 @@
+@use '@/common/variables' as *;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 7px 10px;
+  gap: 0.6rem;
+  background: $color-accent-brand;
+  border: 0.8px solid transparent;
+  color: $color-bg;
+  border-radius: 50px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    color: $color-bg;
+    transform: translateY(-2px);
+    background: $color-label;
+    border: 0.8px solid $color-label;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+}

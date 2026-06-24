@@ -1,0 +1,76 @@
+@use "sass:math";
+@use "@/common/function" as func;
+@use "@/common/breakpoints" as common;
+
+//Подключение шрифта
+@mixin font($font_name, $file_name, $weight, $style) {
+    @font-face {
+        font-family: $font_name;
+        font-display: swap;
+        src: url("./fonts/#{$file_name}.woff2") format("woff2"), url("./fonts/#{$file_name}.woff") format("woff");
+        font-weight: #{$weight};
+        font-style: #{$style};
+    }
+}
+
+//Адаптивное свойство
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: common.$containerWidth, $widthTo: common.$minWidth, $keepSize: 0) {
+    // Брейк-поинты в EM
+    $widthFromMedia: func.em($widthFrom);
+    $widthToMedia: func.em($widthTo);
+    // Ночальное и конечное значение в REM
+    $minSizeValue: func.rem($minSize);
+    $startSizeValue: func.rem($startSize);
+    // Пересчитываем переменные относительно
+    // размера шрифта по умолчанию
+    $minWidth: math.div(common.$minWidth, 14);
+    $maxWidth: math.div(common.$maxWidth, 14);
+    $containerWidth: math.div(common.$containerWidth, 14);
+    $addSize: math.div($startSize - $minSize, 14);
+    $widthTo: math.div($widthTo, 14);
+    $widthFrom: math.div($widthFrom, 14);
+    // Если указано ограничение у контейнера,
+    // либо указана стартовая или конечная ширина
+    // включаем режим работы в промежутке ширин
+    @if (common.$maxWidthContainer > 0 or $widthFrom != $containerWidth or $widthTo != $minWidth) and $widthFrom > $widthTo {
+        // Если стартовая ширина равна ширине контейнера + отступы,
+        // или указана настройка "keepSize" ставим значение
+        // по умолчанию равное стартовому размеру
+        @if $widthFrom == $containerWidth or $keepSize == 1 or $keepSize == 2 {
+            @media (min-width: $widthFromMedia) {
+                #{$property}: $startSizeValue;
+            }
+        }
+        // Адаптируем размер в промежутке между указанными ширинами вьюпорта
+        @media (min-width: $widthToMedia) and (max-width: $widthFromMedia) {
+            #{$property}: calc(#{$minSizeValue} + #{$addSize} * (((100vw - #{$widthTo + rem})) / ((#{$widthFrom - $widthTo}))));
+        }
+        // Если конечная ширина равна минимальной ширине
+        // или указана настройка "keepSize" ставим значение
+        // по умолчанию равное конечному размеру
+        @if $widthTo == $minWidth or $keepSize == 1 or $keepSize == 3 {
+            @media (max-width: $widthToMedia) {
+                #{$property}: $minSizeValue;
+            }
+        }
+    } @else {
+        // Режим работы по всей ширине вьюпорта
+        #{$property}: calc(#{$minSizeValue} + #{$addSize} * (((100vw - #{$widthTo + rem})) / ((#{$maxWidth - $widthTo}))));
+    }
+}
+
+@mixin adaptiveImage($width ) {
+    object-fit: cover;
+    max-width: 100%;
+
+    width: $width;
+    height: auto;
+}
+
+@mixin adaptiveImageHeight($width, $height) {
+    object-fit: cover;
+    max-width: 100%;
+
+    width: $width;
+    height: $height;
+}

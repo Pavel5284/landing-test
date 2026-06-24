@@ -1,0 +1,24 @@
+@use '@/common/function' as func;
+@use '@/common/variables' as vars;
+
+
+$minWidth: 320;
+$maxWidth: 1920;
+// 0 - без ограничений
+$maxWidthContainer: 1760;
+$containerPadding: 30;
+
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// Ширина отрабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты
+$pc: func.em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: func.em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: func.em(767.98); // Телефоны L
+$mobileSmall: func.em(479.98); // Телефоны S
+
+
