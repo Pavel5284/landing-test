@@ -1,14 +1,45 @@
 @use '@/common/variables' as *;
 @use "@/common/templates" as *;
 
-.textButton {
+.wrapper {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.5;
+  height: 1.4em;
   @extend %seventeen-semibold-template;
-  text-decoration: none;
-  transition: all 0.2s;
   color: $accent-color;
+}
 
-  &:hover {
-    opacity: 0.6;
-    transition: all 0.2s;
+.animatedLabel {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1.5;
+  height: 1.4em;
+}
+
+.animatedLabelSpan {
+  display: block;
+  transition: transform 0.3s ease;
+  transform: translateY(0);
+  text-decoration: none;
+
+  &:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(110%);
   }
+}
+
+.wrapper:hover .animatedLabelSpan:first-child {
+  transform: translateY(-110%);
+}
+
+.wrapper:hover .animatedLabelSpan:last-child {
+  transform: translateY(0);
 }
