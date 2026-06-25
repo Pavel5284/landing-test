@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {FC, useState} from 'react';
 import {usePathname} from 'next/navigation';
 import styles from './Header.module.scss';
-import {ApartmentDropdown} from './ApartmentDropdown/ApartmentDropdown';
+import {ApartmentDropdown, apartmentOptions} from './ApartmentDropdown/ApartmentDropdown';
 import {BurgerBtn} from './BurgerBtn/BurgerBtn';
 import type {DropdownItemData} from './Header.types';
 import defaultLogoSvg from '@/public/logo.svg'
@@ -22,12 +22,6 @@ const menuItems: DropdownItemData[] = [
     {label: 'Контакты', href: '/contacts'},
 ];
 
-const apartmentItems: DropdownItemData[] = [
-    {label: 'Студии', href: '/apartments/studio'},
-    {label: '1-комнатные', href: '/apartments/1room'},
-    {label: '2-комнатные', href: '/apartments/2room'},
-    {label: '3-комнатные', href: '/apartments/3room'},
-];
 
 
 export const Header: FC<{ className?: string }> = ({className}) => {
@@ -125,52 +119,54 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                         </div>
                     </div>
                 </div>
+            </header>
 
-                {/* Full-screen nav menu overlay */}
-                {menuOpen && (
-                    <nav className={styles.fullMenu} aria-label="Основная навигация">
-                        <div className={styles.fullMenuInner}>
-                            {menuItems.map(item => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''}`}
-                                    onClick={closeAll}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
+            {/* Full-screen nav menu overlay */}
+            {menuOpen && (
+                <nav className={styles.fullMenu} aria-label="Основная навигация">
+                    <div className="header__container">
+                    <div className={styles.fullMenuInner}>
+                        {menuItems.map(item => (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''}`}
+                                onClick={closeAll}
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
 
-                            <div className={styles.mobileApartmentLinks}>
-                                <button
-                                    className={`${styles.mobileApartmentTitle} ${aptAccordionOpen ? styles.mobileApartmentTitleOpen : ''}`}
-                                    onClick={() => setAptAccordionOpen(prev => !prev)}
-                                    aria-expanded={aptAccordionOpen}
-                                >
-                                    КВАРТИРЫ
-                                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" className={styles.accordionChevron}>
-                                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                                    </svg>
-                                </button>
-                                <div className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
-                                    <div className={styles.accordionInner}>
-                                        {apartmentItems.map(item => (
-                                            <Link
-                                                key={item.href}
-                                                href={item.href}
-                                                className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''}`}
-                                                onClick={closeAll}
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        ))}
-                                    </div>
+                        <div className={styles.mobileApartmentLinks}>
+                            <button
+                                className={`${styles.mobileApartmentTitle} ${aptAccordionOpen ? styles.mobileApartmentTitleOpen : ''}`}
+                                onClick={() => setAptAccordionOpen(prev => !prev)}
+                                aria-expanded={aptAccordionOpen}
+                            >
+                                КВАРТИРЫ
+                                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" className={styles.accordionChevron}>
+                                    <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                                </svg>
+                            </button>
+                            <div className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
+                                <div className={styles.accordionInner}>
+                                    {apartmentOptions.map(item => (
+                                        <Link
+                                            key={item.value}
+                                            href={item.value}
+                                            className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.value) ? styles.fullMenuItemActive : ''}`}
+                                            onClick={closeAll}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    </nav>
-                )}
-            </header>
+                    </div>
+                    </div>
+                </nav>
+            )}
 
             <div
                 className={`${styles.overlay} ${menuOpen || apartmentOpen || phoneOpen ? styles.overlayVisible : ''}`}

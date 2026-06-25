@@ -8,12 +8,12 @@ import Image from 'next/image';
 import styles from './ApartmentDropdown.module.scss';
 import chevronDown from '@/public/images/commonIcons/chevron-down.svg';
 
-interface OptionType {
+export interface OptionType {
     label: string;
     value: string;
 }
 
-const apartmentOptions = [
+export const apartmentOptions = [
     { label: 'Студии', value: '/apartments/studio' },
     { label: '1-комнатные', value: '/apartments/1room' },
     { label: '2-комнатные', value: '/apartments/2room' },

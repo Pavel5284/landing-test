@@ -1,3 +1,4 @@
+@use '@/common/breakpoints' as *;
 @use '@/common/variables' as *;
 @use '@/common/function' as func;
 
@@ -66,7 +67,7 @@
 }
 
 .fullMenuInner {
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1.5rem 2rem;
   display: flex;
