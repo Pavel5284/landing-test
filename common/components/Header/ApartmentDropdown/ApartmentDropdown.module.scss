@@ -1,6 +1,6 @@
 @use '@/common/function' as func;
 @use '@/common/variables' as *;
-@import "@/common/templates";
+@use "@/common/templates" as *;
 
 .container {
   position: relative;

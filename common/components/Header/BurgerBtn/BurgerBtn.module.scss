@@ -1,5 +1,5 @@
 @use '@/common/variables' as *;
-@import "@/common/templates";
+@use "@/common/templates" as *;
 
 .burgerBtn {
   display: flex;

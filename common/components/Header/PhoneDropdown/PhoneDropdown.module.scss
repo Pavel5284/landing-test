@@ -67,3 +67,10 @@
 @media (max-width: 768px) {
   .phoneWrap { display: flex; }
 }
+
+@media (max-width: 570px) {
+  .phoneDropdown {
+    left: auto;
+    right: 0;
+  }
+}

@@ -13,6 +13,7 @@ import {TextLink} from "@/common/components/ui/TextLink/TextLink";
 import {TextButton} from "@/common/components/ui/TextButton/TextButton";
 import {appRoutes} from "@/common/routes/routes";
 import {PhoneDropdown} from './PhoneDropdown/PhoneDropdown';
+import {useCloseEsc} from '@/common/hooks/useCloseEsc';
 
 const menuItems: DropdownItemData[] = [
     {label: 'Главная', href: '/'},
@@ -36,6 +37,11 @@ export const Header: FC<{ className?: string }> = ({className}) => {
         setApartmentOpen(false);
         setPhoneOpen(false);
     };
+
+    useCloseEsc({
+        isOpen: menuOpen || apartmentOpen || phoneOpen,
+        onClose: closeAll,
+    });
 
     const isActive = (href: string) =>
         pathname === href || (href !== '/' && pathname.startsWith(href));
