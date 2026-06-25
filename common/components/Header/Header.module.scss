@@ -1,40 +1,24 @@
 @use '@/common/variables' as *;
+@use '@/common/function' as func;
 
-/* ─── Header ─────────────────────────────────────────────── */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  background: #fff;
+  background: $white-color;
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid $border-color;
 }
 
-.headerContainer {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.headerContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 64px;
 }
 
-/* ─── Logo (center) ──────────────────────────────────────── */
-.logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  flex-shrink: 0;
-  z-index: 1001;
-}
-
-/* ─── Left block ─────────────────────────────────────────── */
+/* ── Desktop left: burger + apartment dropdown ── */
 .leftActions {
   display: flex;
   align-items: center;
@@ -42,7 +26,7 @@
   flex-shrink: 0;
 }
 
-/* ─── Right block ────────────────────────────────────────── */
+/* ── Desktop right: phone text + callback button ── */
 .rightActions {
   display: flex;
   align-items: center;
@@ -50,22 +34,35 @@
   flex-shrink: 0;
 }
 
-/* ─── Full-screen nav menu ───────────────────────────────── */
+/* ── Mobile left: burger + phone icon ── */
+.mobileLeft {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── Mobile right: apartment dropdown ── */
+.mobileRight {
+  display: none;
+  flex-shrink: 0;
+}
+
+.phoneRight {
+  display: flex;
+}
+
+/* ── Full-screen nav ── */
 .fullMenu {
   position: fixed;
   top: 64px;
   left: 0;
   width: 100%;
-  background: #fff;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: $white-color;
+  border-top: 1px solid $border-color;
   z-index: 999;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px $border-color;
   animation: slideDown 0.25s ease;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 .fullMenuInner {
@@ -74,39 +71,93 @@
   padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .fullMenuItem {
-  display: block;
   padding: 1rem 0;
-  font-size: 20px;
+  font-size: func.fluid(20, 16, 1920, 768);
   font-weight: 500;
-  color: #1a1a1a;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: color 0.2s ease;
+  color: $dark-color;
+  border-bottom: 1px solid $border-color;
+  transition: color 0.2s;
 
   &:last-child { border-bottom: none; }
-
-  &:hover {
-    color: #1a6cff;
-  }
+  &:hover { color: $accent-color; }
 }
 
 .fullMenuItemActive {
-  color: #1a6cff;
+  color: $accent-color;
 }
 
-/* ─── Overlay ────────────────────────────────────────────── */
+.mobileApartmentLinks {
+  display: none;
+}
+
+.mobileApartmentTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: func.fluid(20, 16, 1920, 768);
+  font-weight: 500;
+  color: $dark-color;
+  padding: 1rem 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 1px solid $border-color;
+}
+
+.mobileApartmentTitleOpen {
+  color: $accent-color;
+}
+
+.accordionChevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.mobileApartmentTitleOpen .accordionChevron {
+  transform: rotate(180deg);
+}
+
+.accordionBody {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+
+  > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+}
+
+.accordionBodyOpen {
+  grid-template-rows: 1fr;
+}
+
+.accordionItem {
+  display: block;
+  font-size: func.fluid(16, 14, 1920, 768);
+}
+
+.accordionInner {
+  padding-left: 1rem;
+}
+
+.logo {
+  order: 0;
+}
+
+/* ── Overlay ── */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: $overlay-color;
   z-index: 998;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: 0.3s;
 }
 
 .overlayVisible {
@@ -114,44 +165,43 @@
   visibility: visible;
 }
 
-/* ─── Mobile ─────────────────────────────────────────────── */
-.mobileRight {
-  display: none;
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── 768px breakpoint ── */
 @media (max-width: 768px) {
-  .headerContainer {
-    padding: 0 1rem;
+  .headerContent {
     height: 56px;
   }
 
-  .rightActions {
-    display: none;
-  }
+  /* hide desktop slots */
+  .leftActions  { display: none; }
+  .rightActions { display: none; }
 
-  .mobileRight {
-    display: flex;
-    align-items: center;
-  }
+  /* show mobile slots */
+  .mobileLeft  { display: flex; }
+  .mobileRight { display: flex; }
 
-  .phoneLinkMobile {
-    font-size: 13px;
-    font-weight: 500;
-    color: #1a1a1a;
-    text-decoration: none;
-  }
-
-  .fullMenu {
-    top: 56px;
-  }
-
-  .fullMenuInner {
-    padding: 1rem;
-  }
+  .fullMenu { top: 56px; }
+  .fullMenuInner { padding: 1rem; }
 
   .fullMenuItem {
-    font-size: 16px;
     padding: 0.875rem 0;
   }
 }
 
+/* ── 570px breakpoint ── */
+@media (max-width: 570px) {
+  .mobileRight { display: none; }
+
+  .phoneRight { order: 2; }
+
+  .logo { order: 1; }
+
+  .mobileApartmentLinks {
+    display: flex;
+    flex-direction: column;
+  }
+}

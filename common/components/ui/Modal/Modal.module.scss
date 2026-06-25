@@ -1,6 +1,5 @@
-@use '@/common/mixins';
+@use '@/common/function' as func;
 @use '@/common/variables' as *;
-@import "@/common/templates";
 
 .modal {
   height: 100vh;
@@ -69,7 +68,7 @@
   text-align: left;
   z-index: 1000;
   position: absolute;
-  @include mixins.adaptiveValue('padding', 40, 20);
+  padding: func.fluid(40, 20);
   border-radius: 12px;
   background-color: $color-bg;
   //width: 50vw;

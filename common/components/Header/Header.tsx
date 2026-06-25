@@ -11,27 +11,36 @@ import type {DropdownItemData} from './Header.types';
 import defaultLogoSvg from '@/public/logo.svg'
 import {TextLink} from "@/common/components/ui/TextLink/TextLink";
 import {TextButton} from "@/common/components/ui/TextButton/TextButton";
+import {appRoutes} from "@/common/routes/routes";
+import {PhoneDropdown} from './PhoneDropdown/PhoneDropdown';
 
 const menuItems: DropdownItemData[] = [
-    { label: 'Главная', href: '/' },
-    { label: 'О проекте', href: '/about' },
-    { label: 'Генплан', href: '/genplan' },
-    { label: 'Ход строительства', href: '/progress' },
-    { label: 'Контакты', href: '/contacts' },
+    {label: 'Главная', href: '/'},
+    {label: 'О проекте', href: '/about'},
+    {label: 'Генплан', href: '/genplan'},
+    {label: 'Ход строительства', href: '/progress'},
+    {label: 'Контакты', href: '/contacts'},
 ];
 
-const phoneNumber = "tel:+74955272121";
-const phoneDisplay = "+7 495 527 21 21";
-const callbackHref = "/callback";
+const apartmentItems: DropdownItemData[] = [
+    {label: 'Студии', href: '/apartments/studio'},
+    {label: '1-комнатные', href: '/apartments/1room'},
+    {label: '2-комнатные', href: '/apartments/2room'},
+    {label: '3-комнатные', href: '/apartments/3room'},
+];
+
 
 export const Header: FC<{ className?: string }> = ({className}) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [apartmentOpen, setApartmentOpen] = useState(false);
+    const [phoneOpen, setPhoneOpen] = useState(false);
+    const [aptAccordionOpen, setAptAccordionOpen] = useState(false);
     const pathname = usePathname();
 
     const closeAll = () => {
         setMenuOpen(false);
         setApartmentOpen(false);
+        setPhoneOpen(false);
     };
 
     const isActive = (href: string) =>
@@ -40,44 +49,80 @@ export const Header: FC<{ className?: string }> = ({className}) => {
     return (
         <>
             <header className={`${styles.header} ${className || ''}`}>
-                <div className={styles.headerContainer}>
+                <div className="header__container">
+                    <div className={styles.headerContent}>
 
-                    {/* Left: burger menu + apartment dropdown */}
-                    <div className={styles.leftActions}>
-                        <BurgerBtn
-                            isOpen={menuOpen}
-                            onToggle={() => { setMenuOpen(prev => !prev); setApartmentOpen(false); }}
-                        />
+                        {/* Desktop left: burger + apartment dropdown */}
+                        <div className={styles.leftActions}>
+                            <BurgerBtn
+                                isOpen={menuOpen}
+                                onToggle={() => {
+                                    setMenuOpen(prev => !prev);
+                                    setApartmentOpen(false);
+                                    setPhoneOpen(false);
+                                }}
+                            />
 
-                        <ApartmentDropdown
-                            isOpen={apartmentOpen}
-                            onOpenChange={(open) => { setApartmentOpen(open); if (open) setMenuOpen(false); }}
-                            isActive={isActive}
-                        />
-                    </div>
+                            <ApartmentDropdown
+                                isOpen={apartmentOpen}
+                                onOpenChange={(open) => {
+                                    setApartmentOpen(open);
+                                    if (open) { setMenuOpen(false); setPhoneOpen(false); }
+                                }}
+                                isActive={isActive}
+                            />
+                        </div>
 
-                    {/* Center: Logo */}
-                    <Link href="/" className={styles.logo} onClick={closeAll}>
-                        <Image
-                            src={defaultLogoSvg}
-                            alt="logo"
-                            width={160}
-                            height={32}
-                            loading="lazy"
-                        />
-                    </Link>
+                        {/* Mobile left: burger only */}
+                        <div className={styles.mobileLeft}>
+                            <BurgerBtn
+                                isOpen={menuOpen}
+                                onToggle={() => {
+                                    setMenuOpen(prev => !prev);
+                                    setApartmentOpen(false);
+                                    setPhoneOpen(false);
+                                }}
+                            />
+                        </div>
 
-                    {/* Right: phone + callback */}
-                    <div className={styles.rightActions}>
-                        <TextLink href={phoneNumber}>{phoneDisplay}</TextLink>
-                        <TextButton onClick={()=>true}>ЗАКАЗАТЬ ЗВОНОК</TextButton>
-                    </div>
+                        <div className={styles.phoneRight}>
+                            <PhoneDropdown
+                                isOpen={phoneOpen}
+                                onOpenChange={(open) => {
+                                    setPhoneOpen(open);
+                                    if (open) { setMenuOpen(false); setApartmentOpen(false); }
+                                }}
+                            />
+                        </div>
 
-                    {/* Mobile toggle (only phone visible on mobile) */}
-                    <div className={styles.mobileRight}>
-                        <a href={phoneNumber} className={styles.phoneLinkMobile}>
-                            {phoneDisplay}
-                        </a>
+                        {/* Center: Logo */}
+                        <Link href="/" className={styles.logo}>
+                            <Image
+                                src={defaultLogoSvg}
+                                alt="logo"
+                                width={160}
+                                height={32}
+                                loading="lazy"
+                            />
+                        </Link>
+
+                        {/* Desktop right: phone + callback */}
+                        <div className={styles.rightActions}>
+                            <TextLink href={appRoutes.phone.phoneLink}>{appRoutes.phone.phoneDisplay}</TextLink>
+                            <TextButton onClick={() => true}>ЗАКАЗАТЬ ЗВОНОК</TextButton>
+                        </div>
+
+                        {/* Mobile right: apartment dropdown */}
+                        <div className={styles.mobileRight}>
+                            <ApartmentDropdown
+                                isOpen={apartmentOpen}
+                                onOpenChange={(open) => {
+                                    setApartmentOpen(open);
+                                    if (open) { setMenuOpen(false); setPhoneOpen(false); }
+                                }}
+                                isActive={isActive}
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -95,13 +140,40 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                                     {item.label}
                                 </Link>
                             ))}
+
+                            <div className={styles.mobileApartmentLinks}>
+                                <button
+                                    className={`${styles.mobileApartmentTitle} ${aptAccordionOpen ? styles.mobileApartmentTitleOpen : ''}`}
+                                    onClick={() => setAptAccordionOpen(prev => !prev)}
+                                    aria-expanded={aptAccordionOpen}
+                                >
+                                    КВАРТИРЫ
+                                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" className={styles.accordionChevron}>
+                                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                                    </svg>
+                                </button>
+                                <div className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
+                                    <div className={styles.accordionInner}>
+                                        {apartmentItems.map(item => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''}`}
+                                                onClick={closeAll}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </nav>
                 )}
             </header>
 
             <div
-                className={`${styles.overlay} ${menuOpen || apartmentOpen ? styles.overlayVisible : ''}`}
+                className={`${styles.overlay} ${menuOpen || apartmentOpen || phoneOpen ? styles.overlayVisible : ''}`}
                 onClick={closeAll}
                 aria-hidden="true"
             />

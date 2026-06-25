@@ -1,7 +1,6 @@
 export const appRoutes = {
-    privacyPolicy: "/privacy-policy",
-    email: {
-        mailto: "mailto:clients@j-call.ru",
-        address: "clients@j-call.ru",
+    phone: {
+        phoneLink: "tel:+74955272121",
+        phoneDisplay: "+7 495 527 21 21",
     },
 }

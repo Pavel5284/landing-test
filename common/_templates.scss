@@ -1,18 +1,25 @@
-@use '@/common/mixins';
+@use '@/common/function' as func;
 @use '@/common/variables' as *;
 
 
 %seventeen-semibold-template {
-  @include mixins.adaptiveValue('font-size', 17, 13);
+  font-size: func.fluid(17, 13);
   line-height: normal;
   letter-spacing: 0;
   font-weight: 600;
   color: $dark-color;
 }
 %fifteen-semibold-template {
-  @include mixins.adaptiveValue('font-size', 15, 12);
+  font-size: func.fluid(15, 12);
   line-height: normal;
-  letter-spacing: 0.07em; //7% от текущего размера шрифта
+  letter-spacing: 0.07em;
   font-weight: 600;
+  color: $dark-color;
+}
+%twelve-regular-template {
+  font-size: func.fluid(12, 10);
+  line-height: normal;
+  letter-spacing: 0.02em;
+  font-weight: 400;
   color: $dark-color;
 }
