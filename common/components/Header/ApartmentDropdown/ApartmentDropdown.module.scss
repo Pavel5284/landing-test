@@ -2,6 +2,10 @@
 @use '@/common/variables' as *;
 @use "@/common/templates" as *;
 
+.wrapper {
+  position: relative;
+}
+
 .container {
   position: relative;
 }
@@ -156,10 +160,10 @@
   }
 }
 
-.aptDropdownHovered .animatedLabelSpan:first-child {
+.control:hover .animatedLabelSpan:first-child {
   transform: translateY(-110%);
 }
 
-.aptDropdownHovered .animatedLabelSpan:last-child {
+.control:hover .animatedLabelSpan:last-child {
   transform: translateY(0);
 }

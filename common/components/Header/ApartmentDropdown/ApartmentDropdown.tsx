@@ -1,8 +1,8 @@
 "use client"
 
-import React, {createContext, FC, useContext, useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import Select, {components, GroupBase} from 'react-select';
-import type {SingleValueProps, PlaceholderProps, ControlProps, DropdownIndicatorProps} from 'react-select';
+import type {SingleValueProps, PlaceholderProps, DropdownIndicatorProps} from 'react-select';
 import {useRouter} from 'next/navigation';
 import Image from 'next/image';
 import styles from './ApartmentDropdown.module.scss';
@@ -25,22 +25,6 @@ interface ApartmentDropdownProps {
     onOpenChange: (open: boolean) => void;
     isActive: (href: string) => boolean;
 }
-
-const HoverCtx = createContext<{ setHovered: (v: boolean) => void }>({ setHovered: () => {} });
-
-const CustomControl = (props: ControlProps<OptionType, false, GroupBase<OptionType>>) => {
-    const { setHovered } = useContext(HoverCtx);
-    return (
-        <components.Control
-            {...props}
-            innerProps={{
-                ...props.innerProps,
-                onMouseEnter: () => setHovered(true),
-                onMouseLeave: () => setHovered(false),
-            }}
-        />
-    );
-};
 
 const AnimatedLabel = ({children}: {children: React.ReactNode}) => (
     <div className={styles.animatedLabel}>
@@ -83,14 +67,12 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<OptionType, false
 const customComponents = {
     SingleValue: CustomSingleValue,
     Placeholder: CustomPlaceholder,
-    Control: CustomControl,
     DropdownIndicator: CustomDropdownIndicator,
 };
 
 const ANIMATION_DURATION = 200;
 
 export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenChange, isActive}) => {
-    const [hovered, setHovered] = useState(false);
     const [closing, setClosing] = useState(false);
     const closeTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
     const router = useRouter();
@@ -118,9 +100,8 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
     };
 
     return (
-        <div className={hovered ? styles.aptDropdownHovered : ''}>
-            <HoverCtx.Provider value={{ setHovered }}>
-                <Select<OptionType, false>
+        <div className={styles.wrapper}>
+            <Select<OptionType, false>
                     options={apartmentOptions}
                     unstyled
                     instanceId="apartment-select"
@@ -146,7 +127,6 @@ export const ApartmentDropdown: FC<ApartmentDropdownProps> = ({isOpen, onOpenCha
                     onMenuOpen={handleMenuOpen}
                     onMenuClose={handleMenuClose}
                 />
-            </HoverCtx.Provider>
         </div>
     );
 };
