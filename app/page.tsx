@@ -1,9 +1,10 @@
+import {MainPage} from "@/pagesModules/MainPageModules";
 
 export default function Home() {
-  return (
-      <main>
+    return (
+        <main>
+            <MainPage/>
+        </main>
 
-      </main>
-
-  );
+    );
 }
