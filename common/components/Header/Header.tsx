@@ -132,11 +132,11 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                 <nav className={styles.fullMenu} aria-label="Основная навигация">
                     <div className="header__container">
                     <div className={styles.fullMenuInner}>
-                        {menuItems.map(item => (
+                        {menuItems.map((item, idx) => (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''}`}
+                                className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''} ${idx === menuItems.length - 1 ? styles.fullMenuItemLast : ''}`}
                                 onClick={closeAll}
                             >
                                 {item.label}
@@ -156,11 +156,11 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                             </button>
                             <div className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
                                 <div className={styles.accordionInner}>
-                                    {apartmentOptions.map(item => (
+                                    {apartmentOptions.map((item, idx) => (
                                         <Link
                                             key={item.value}
                                             href={item.value}
-                                            className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.value) ? styles.fullMenuItemActive : ''}`}
+                                            className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.value) ? styles.fullMenuItemActive : ''} ${idx === apartmentOptions.length - 1 ? styles.fullMenuItemLast : ''}`}
                                             onClick={closeAll}
                                         >
                                             {item.label}

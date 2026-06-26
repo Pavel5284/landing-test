@@ -81,8 +81,12 @@
   border-bottom: 1px solid $border-color;
   transition: color 0.2s;
 
-  &:last-child { border-bottom: none; }
   &:hover { color: $accent-color; }
+}
+
+.fullMenuInner .fullMenuItemLast {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .fullMenuItemActive {
@@ -203,5 +207,10 @@
   .mobileApartmentLinks {
     display: flex;
     flex-direction: column;
+  }
+
+  .fullMenuInner > .fullMenuItemLast {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 0.875rem;
   }
 }

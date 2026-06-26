@@ -7,9 +7,6 @@
   cursor: pointer;
   padding: 0;
   display: inline-flex;
-  overflow: hidden;
-  line-height: 1.5;
-  height: 1.4em;
   @extend %seventeen-semibold-template;
   color: $accent-color;
 }
