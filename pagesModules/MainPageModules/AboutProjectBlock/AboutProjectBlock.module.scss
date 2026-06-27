@@ -1,0 +1,272 @@
+@use '@/common/variables' as *;
+@use '@/common/function' as func;
+
+// ─── Секция ────────────────────────────────────────────────────
+
+.aboutProject {
+  padding: 40px 0 120px;
+}
+
+// ─── Надпись «О ПРОЕКТЕ» ───────────────────────────────────────
+
+.sectionLabel {
+  position: absolute;
+  top: -28px;
+  right: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: $accent-color;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+// ─── Двухколоночная обёртка ────────────────────────────────────
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 44% 1fr;
+  gap: 80px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+// ─── Левая колонка — изображение ──────────────────────────────
+
+.imageCol {
+  position: relative;
+  // Нет border-radius — углы прямые
+  overflow: visible; // логотип выходит за правый край
+  height: 500px;
+
+  @media (max-width: 1200px) {
+    height: 440px;
+  }
+
+  @media (max-width: 1024px) {
+    height: 380px;
+  }
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+.heroImgWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center top;
+}
+
+// Логотип выходит за правый край изображения (~70% по x, ~30% по y)
+.logoOverlay {
+  position: absolute;
+  top: 28%;
+  right: -60px; // выходит за правый край фото
+  width: 140px;
+  height: 140px;
+  background-color: $accent-color;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 26px;
+  z-index: 2;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  @media (max-width: 1200px) {
+    width: 120px;
+    height: 120px;
+    right: -50px;
+    padding: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100px;
+    height: 100px;
+    right: -40px;
+    padding: 18px;
+  }
+
+  @media (max-width: 768px) {
+    width: 80px;
+    height: 80px;
+    right: -30px;
+    top: 25%;
+    padding: 14px;
+  }
+}
+
+// ─── Правая колонка — контент ──────────────────────────────────
+
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 40px; // контент начинается примерно с трети сверху
+}
+
+// Синяя акцент-полоска
+
+.accent {
+  display: block;
+  width: 44px;
+  height: 4px;
+  background-color: $accent-color;
+  flex-shrink: 0;
+}
+
+// Заголовок
+
+.title {
+  font-size: func.fluid(30, 20, 1920, 1024);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #111827;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: func.fluid(20, 17, 768, 360);
+  }
+}
+
+.titleBlue {
+  color: $accent-color;
+}
+
+// Описание
+
+.description {
+  font-size: func.fluid(13, 11, 1920, 1024);
+  line-height: 1.65;
+  color: #374151;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.descriptionBlue {
+  color: $accent-color;
+}
+
+// ─── Блок "Видео о проекте" ────────────────────────────────────
+
+// Внешний контейнер — относительный, чтобы миниатюра могла выходить вниз
+.videoWrap {
+  position: relative;
+  padding-bottom: 50px; // место для выступающей миниатюры
+}
+
+.video {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+// Горизонтальная линия-разделитель слева от текста
+.videoLine {
+  flex: 1;
+  height: 1px;
+  background-color: #d1d5db;
+  margin-right: 20px;
+}
+
+.videoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.videoLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #111827;
+}
+
+.videoDuration {
+  font-size: 11px;
+  color: #9ca3af;
+  letter-spacing: 0.03em;
+}
+
+// Круглая миниатюра — абсолютно, выступает вниз и вправо
+.videoThumb {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  flex-shrink: 0;
+
+  &:hover .playBtn {
+    background-color: rgba($accent-color, 0.7);
+  }
+
+  @media (max-width: 1200px) {
+    width: 110px;
+    height: 110px;
+  }
+
+  @media (max-width: 768px) {
+    width: 90px;
+    height: 90px;
+    bottom: -10px;
+  }
+}
+
+.videoThumbImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+.playBtn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background-color: rgba(0, 0, 0, 0.38);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: background-color 0.25s ease;
+
+  svg {
+    display: block;
+  }
+}
