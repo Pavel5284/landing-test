@@ -2,18 +2,25 @@
 @use '@/common/function' as func;
 
 .hero {
+  height: 100vh;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  height: 100%;
 }
 
 .imageFull {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -74,6 +81,7 @@
     font-size: func.fluid(26, 19, 1440, 1024);
   }
 }
+
 @media (max-width: 880px) {
   .bottom {
     flex-direction: column;
@@ -84,5 +92,12 @@
   }
   .svgWrapper {
     max-width: 880px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
   }
 }
