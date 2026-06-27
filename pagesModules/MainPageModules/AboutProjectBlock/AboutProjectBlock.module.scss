@@ -1,272 +1,229 @@
 @use '@/common/variables' as *;
 @use '@/common/function' as func;
 
-// ─── Секция ────────────────────────────────────────────────────
 
 .aboutProject {
   padding: 40px 0 120px;
 }
 
-// ─── Надпись «О ПРОЕКТЕ» ───────────────────────────────────────
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 150px;
+  align-items: flex-start;
+}
+
+
+.imageCol {
+  position: relative;
+  flex: 0 0 auto;
+  width: 46%;
+  max-width: 733px;
+}
 
 .sectionLabel {
   position: absolute;
   top: -28px;
   right: 0;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: func.fluid(17, 13, 1920, 1440);
+  font-weight: 400;
+  line-height: 140%;
   color: $accent-color;
   margin: 0;
-  text-transform: uppercase;
 }
 
-// ─── Двухколоночная обёртка ────────────────────────────────────
-
-.wrapper {
-  display: grid;
-  grid-template-columns: 44% 1fr;
-  gap: 80px;
-  align-items: start;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
-
-// ─── Левая колонка — изображение ──────────────────────────────
-
-.imageCol {
-  position: relative;
-  // Нет border-radius — углы прямые
-  overflow: visible; // логотип выходит за правый край
-  height: 500px;
-
-  @media (max-width: 1200px) {
-    height: 440px;
-  }
-
-  @media (max-width: 1024px) {
-    height: 380px;
-  }
-
-  @media (max-width: 768px) {
-    height: 300px;
-  }
-}
 
 .heroImgWrap {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  border-radius: 2px;
 }
 
 .heroImg {
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
+  transition: transform 0.6s ease;
 }
 
-// Логотип выходит за правый край изображения (~70% по x, ~30% по y)
-.logoOverlay {
+.arrow {
   position: absolute;
-  top: 28%;
-  right: -60px; // выходит за правый край фото
-  width: 140px;
-  height: 140px;
-  background-color: $accent-color;
-  border-radius: 50%;
+  top: 30%;
+  left: 100%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 26px;
-  z-index: 2;
 
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-  }
-
-  @media (max-width: 1200px) {
-    width: 120px;
-    height: 120px;
-    right: -50px;
-    padding: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    width: 100px;
-    height: 100px;
-    right: -40px;
-    padding: 18px;
-  }
-
-  @media (max-width: 768px) {
-    width: 80px;
-    height: 80px;
-    right: -30px;
-    top: 25%;
-    padding: 14px;
-  }
+  /* Круглый фон как на картинке */
+  width: 259px;
+  height: 259px;
+  background: $accent-color;
+  border-radius: 50%;
 }
 
-// ─── Правая колонка — контент ──────────────────────────────────
 
+/* ─── Правая колонка: контент ────────────────────── */
 .contentCol {
+  max-width: 590px;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding-top: 40px; // контент начинается примерно с трети сверху
+  gap: 50px;
+  padding-top: 32px;
 }
 
-// Синяя акцент-полоска
-
+/* Синяя черта-акцент над заголовком */
 .accent {
   display: block;
-  width: 44px;
-  height: 4px;
-  background-color: $accent-color;
-  flex-shrink: 0;
+  width: 63px;
+  height: 12px;
+  background: $accent-color;
 }
 
-// Заголовок
-
 .title {
-  font-size: func.fluid(30, 20, 1920, 1024);
-  font-weight: 700;
-  line-height: 1.2;
-  color: #111827;
-  margin: 0;
-
-  @media (max-width: 768px) {
-    font-size: func.fluid(20, 17, 768, 360);
-  }
+  margin-bottom: 40px;
+  font-size: func.fluid(34, 26, 1920, 1440);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 140%;
+  color: $dark-color;
 }
 
 .titleBlue {
   color: $accent-color;
 }
 
-// Описание
-
 .description {
-  font-size: func.fluid(13, 11, 1920, 1024);
-  line-height: 1.65;
-  color: #374151;
   margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
+  font-size: func.fluid(20, 16, 1920, 1440);
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: 0;
+  color: $dark-color;
 }
 
 .descriptionBlue {
   color: $accent-color;
 }
 
-// ─── Блок "Видео о проекте" ────────────────────────────────────
 
-// Внешний контейнер — относительный, чтобы миниатюра могла выходить вниз
+/* ─── Видео-строка ───────────────────────────────── */
 .videoWrap {
-  position: relative;
-  padding-bottom: 50px; // место для выступающей миниатюры
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 12px;
 }
 
+/* Левая часть: текст + линия */
 .video {
   display: flex;
   align-items: center;
-  gap: 0;
-}
-
-// Горизонтальная линия-разделитель слева от текста
-.videoLine {
-  flex: 1;
-  height: 1px;
-  background-color: #d1d5db;
-  margin-right: 20px;
+  gap: 20px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .videoInfo {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  flex-shrink: 0;
+  gap: 4px;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* горизонтальная линия — после текста, до превью */
+.videoLine {
+  display: block;
+  flex: 1 1 auto;
+  height: 1px;
+  background: $dark-color;
+  opacity: 0.25;
 }
 
 .videoLabel {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #111827;
+  font-size: func.fluid(13, 11, 1920, 1440);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: $dark-color;
+  text-transform: uppercase;
 }
 
 .videoDuration {
-  font-size: 11px;
-  color: #9ca3af;
-  letter-spacing: 0.03em;
+  font-size: func.fluid(12, 10, 1920, 1440);
+  font-weight: 400;
+  color: $dark-color;
 }
 
-// Круглая миниатюра — абсолютно, выступает вниз и вправо
+
+/* ─── Круглое превью видео ───────────────────────── */
 .videoThumb {
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-  width: 130px;
-  height: 130px;
+  position: relative;
+  flex: 0 0 auto;
+  width: 241px;
+  height: 241px;
   border-radius: 50%;
   overflow: hidden;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: transparent;
-  flex-shrink: 0;
+  outline: none;
 
-  &:hover .playBtn {
-    background-color: rgba($accent-color, 0.7);
-  }
-
-  @media (max-width: 1200px) {
-    width: 110px;
-    height: 110px;
-  }
-
-  @media (max-width: 768px) {
-    width: 90px;
-    height: 90px;
-    bottom: -10px;
+  &:focus-visible {
+    box-shadow: 0 0 0 3px $accent-color;
   }
 }
 
 .videoThumbImg {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
+  display: block;
 }
 
+/* Кнопка PLAY поверх превью */
 .playBtn {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  background-color: rgba(0, 0, 0, 0.38);
-  color: #ffffff;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  transition: background-color 0.25s ease;
+  background: transparent;
+  color: #fff;
 
-  svg {
-    display: block;
+  /* Белое кольцо */
+  &::after {
+    content: '';
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    transition: width 0.35s ease, height 0.35s ease, border-color 0.35s ease;
   }
+
+  .videoThumb:hover &::after {
+    width: 135px;
+    height: 135px;
+    border-color: #fff;
+  }
+}
+
+/* Внутренний контент PLAY (иконка + текст) поверх кольца */
+.playBtnInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }

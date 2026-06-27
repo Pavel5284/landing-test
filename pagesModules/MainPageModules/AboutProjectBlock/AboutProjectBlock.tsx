@@ -1,7 +1,9 @@
 import styles from './AboutProjectBlock.module.scss';
 import Image from "next/image"
-import HeroImg from './img/HeroImg.webp'
-import LogoSvg from './img/INCHAPIN.svg'
+import MainImg from './img/MainImg.webp'
+import ArrowTop from './img/ArrowTop.svg'
+import VideoImg from './img/VideoImage.webp'
+import PlayIcon from './img/PlayIcon.svg'
 
 export const AboutProjectBlock = () => {
     return (
@@ -15,8 +17,8 @@ export const AboutProjectBlock = () => {
                         {/* Отдельный враппер для overflow:hidden на изображении */}
                         <div className={styles.heroImgWrap}>
                             <Image
-                                src={HeroImg}
-                                alt="Hero"
+                                src={MainImg}
+                                alt="Main image"
                                 fill
                                 quality={100}
                                 loading="lazy"
@@ -24,12 +26,11 @@ export const AboutProjectBlock = () => {
                             />
                         </div>
 
-                        {/* Логотип выходит за правый край фото */}
-                        <div className={styles.logoOverlay}>
+                        <div className={styles.arrow}>
                             <Image
-                                src={LogoSvg}
-                                alt="Logo"
-                                width={88}
+                                src={ArrowTop}
+                                alt="Arrow"
+                                width={63}
                                 height={88}
                                 loading="lazy"
                             />
@@ -38,11 +39,13 @@ export const AboutProjectBlock = () => {
 
                     {/* Правая колонка — текстовый контент */}
                     <div className={styles.contentCol}>
-                        <span className={styles.accent} />
+                        <span className={styles.accent}/>
 
                         <h2 className={styles.title}>
                             УЮТНОЕ И БЕЗОПАСНОЕ
-                            {' '}ПРОСТРАНСТВО ДЛЯ СЧАСТЛИВОЙ,{' '}
+                            <br/>
+                            ПРОСТРАНСТВО ДЛЯ СЧАСТЛИВОЙ,
+                            <br/>
                             <span className={styles.titleBlue}>
                                 СПОКОЙНОЙ И РАЗМЕРЕННОЙ ЖИЗНИ
                             </span>
@@ -51,7 +54,8 @@ export const AboutProjectBlock = () => {
                         <p className={styles.description}>
                             <span className={styles.descriptionBlue}>
                                 КВАРТИРЫ ОТ 65 ДО 356 М² С ЧИСТОВОЙ ОТДЕЛКОЙ,
-                            </span>{' '}
+                            </span>
+                            <br/>
                             БАЛКОНАМИ, ЛОДЖИЯМИ И ТЕРРАСАМИ В СОБСТВЕННОЙ
                             ЗАКРЫТОЙ ОХРАНЯЕМОЙ ТЕРРИТОРИИ.
                         </p>
@@ -59,26 +63,27 @@ export const AboutProjectBlock = () => {
                         {/* Видео: линия + текст + круглое превью */}
                         <div className={styles.videoWrap}>
                             <div className={styles.video}>
-                                <span className={styles.videoLine} />
                                 <div className={styles.videoInfo}>
                                     <span className={styles.videoLabel}>ВИДЕО О ПРОЕКТЕ</span>
                                     <span className={styles.videoDuration}>1:25 минут</span>
                                 </div>
+                                <span className={styles.videoLine}/>
                             </div>
 
                             <button className={styles.videoThumb} aria-label="Смотреть видео о проекте">
                                 <Image
-                                    src={HeroImg}
+                                    src={VideoImg}
                                     alt="Превью видео"
-                                    fill
+                                    width={241}
+                                    height={241}
                                     className={styles.videoThumbImg}
                                     loading="lazy"
                                 />
                                 <span className={styles.playBtn}>
-                                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-                                        <path d="M1 1L11 7L1 13V1Z" fill="white" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
-                                    </svg>
-                                    PLAY
+                                    <span className={styles.playBtnInner}>
+                                        <Image src={PlayIcon} alt={"Play Icon"} width={12} height={13} loading={"lazy"}/>
+                                        PLAY
+                                    </span>
                                 </span>
                             </button>
                         </div>
