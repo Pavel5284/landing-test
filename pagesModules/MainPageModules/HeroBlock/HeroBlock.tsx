@@ -14,6 +14,8 @@ export const HeroBlock = () => {
                             alt="Hero"
                             width={1760}
                             height={600}
+                            quality={100}
+                            loading={"lazy"}
                         />
                     </div>
 
@@ -31,6 +33,7 @@ export const HeroBlock = () => {
                                 alt="Logo"
                                 width={862}
                                 height={137}
+                                loading={"lazy"}
                             />
                         </div>
                     </div>
