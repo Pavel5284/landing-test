@@ -35,34 +35,48 @@
 /* ── Field ──────────────────────────────────────────────── */
 .field_wrap {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
   margin-bottom: 28px;
+  // Отступ сверху под плавающий лейбл
+  padding-top: 18px;
 }
 
-.label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+/* ── Floating label ─────────────────────────────────────── */
+.floating_label {
+  position: absolute;
+  left: 0;
+  // В покое — внутри поля, по вертикали совпадает с текстом
+  top: 18px + 4px; // padding-top field_wrap + небольшой сдвиг
+  font-size: func.fluid(17, 16, 1920, 1440);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 160%;
   color: $black-color;
-  text-transform: uppercase;
+  pointer-events: none;
+  transform-origin: left top;
+  transition:
+          top 0.22s ease,
+          font-size 0.22s ease,
+          font-weight 0.22s ease,
+          letter-spacing 0.22s ease,
+          color 0.22s ease;
 }
 
+/* ── Input ──────────────────────────────────────────────── */
 .input {
+  display: block;
   width: 100%;
   height: 36px;
   padding: 0 0 8px;
   border: none;
-  border-bottom: 1px solid #c8c8c8;
+  border-bottom: 1px solid rgba($black-color, 0.2);
   border-radius: 0;
   background: transparent;
   color: $black-color;
-  opacity: 0.2;
   font-size: 15px;
   outline: none;
   transition: border-color 0.2s;
 
+  // Скрываем встроенный placeholder — он нужен только как якорь для :placeholder-shown
   &::placeholder {
     color: transparent;
   }
@@ -71,8 +85,35 @@
     border-bottom-color: #1a6ef5;
   }
 
+  // Поднимаем лейбл при фокусе
+  &:focus + .floating_label {
+    top: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #1a6ef5;
+  }
+
+  // Оставляем лейбл наверху, когда поле заполнено (placeholder скрыт = есть значение)
+  &:not(:placeholder-shown) + .floating_label {
+    top: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgba($black-color, 0.4);
+  }
+
+  // Приоритет цвета фокуса над состоянием «заполнено»
+  &:focus:not(:placeholder-shown) + .floating_label {
+    color: #1a6ef5;
+  }
+
   &_error {
     border-bottom-color: $red-color;
+
+    & + .floating_label {
+      color: $red-color;
+    }
   }
 }
 
@@ -125,5 +166,17 @@
   &:disabled {
     opacity: 0.45;
     cursor: not-allowed;
+  }
+}
+
+@media (max-width: 1440px) {
+  .title {
+    font-size: func.fluid(52, 40, 1920, 1440);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 120%;
+    color: $black-color;
+    text-align: center;
+    margin: 0 0 50px;
   }
 }
