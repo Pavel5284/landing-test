@@ -1,5 +1,7 @@
 import style from "./Modal.module.scss";
 import { ReactNode, useEffect } from "react";
+import Image from "next/image";
+import closeIcon from './closeIcon.svg'
 
 type PropsType = {
   active: boolean;
@@ -8,6 +10,7 @@ type PropsType = {
   content?: boolean;
   closeButton: boolean;
   dataType?: string;
+  fullScreen?: boolean;
 };
 const ModalMain = ({
   active,
@@ -16,6 +19,7 @@ const ModalMain = ({
   content,
   closeButton,
   dataType,
+  fullScreen,
 }: PropsType) => {
   useEffect(() => {
     setActive(false);
@@ -27,25 +31,17 @@ const ModalMain = ({
           className={active ? style.modal_active_content : style.modal}
           onClick={() => setActive(false)}
         >
-          <div
-            className={
-              active ? style.modal__content_active : style.modal__content
-            }
-            onClick={(e) => e.stopPropagation()}
-          >
-            {children}
-            {closeButton && (
+            <div
+              className={`${active ? style.modal__content_active : style.modal__content} ${fullScreen ? style.modal__content_fullScreen : ''}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {children}
+              {closeButton && (
               <button
                 className={style.close__button}
                 onClick={() => setActive(false)}
               >
-                <svg width="40" height="40" viewBox="0 0 40 40">
-                  <path
-                    fill="white"
-                    fillRule="evenodd"
-                    d="M25.6 14.3a1 1 0 0 1 0 1.4l-4.24 4.25 4.25 4.24a1 1 0 1 1-1.42 1.42l-4.24-4.25-4.24 4.25a1 1 0 0 1-1.42-1.42l4.25-4.24-4.25-4.24a1 1 0 0 1 1.42-1.42l4.24 4.25 4.24-4.25a1 1 0 0 1 1.42 0z"
-                  ></path>
-                </svg>
+                <Image src={closeIcon} alt="close" width={26} height={26} />
               </button>
             )}
           </div>
@@ -56,9 +52,7 @@ const ModalMain = ({
           onClick={() => setActive(false)}
         >
           <div
-            className={
-              active ? style.modal__content_active : style.modal__content
-            }
+            className={`${active ? style.modal__content_active : style.modal__content} ${fullScreen ? style.modal__content_fullScreen : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {children}

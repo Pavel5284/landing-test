@@ -10,9 +10,10 @@ import {useCloseEsc} from '@/common/hooks/useCloseEsc';
 interface PhoneDropdownProps {
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
+    onCallMeClick?: () => void;
 }
 
-export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange}) => {
+export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange, onCallMeClick}) => {
     const btnRef = useRef<HTMLButtonElement>(null);
 
     useCloseEsc({
@@ -41,7 +42,10 @@ export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange}) =>
                     </TextLink>
                     <TextButton
                         className={styles.phoneDropdownItem}
-                        onClick={() => onOpenChange(false)}
+                        onClick={() => {
+                            onOpenChange(false);
+                            onCallMeClick?.();
+                        }}
                     >
                         ЗАКАЗАТЬ ЗВОНОК
                     </TextButton>

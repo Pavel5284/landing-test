@@ -14,6 +14,8 @@ import {TextButton} from "@/common/components/ui/TextButton/TextButton";
 import {appRoutes} from "@/common/routes/routes";
 import {PhoneDropdown} from './PhoneDropdown/PhoneDropdown';
 import {useCloseEsc} from '@/common/hooks/useCloseEsc';
+import {CallMeForm} from '@/common/components/CallMeForm/CallMeForm';
+import ModalMain from '@/common/components/ui/Modal/ModalMain';
 
 const menuItems: DropdownItemData[] = [
     {label: 'Главная', href: '/'},
@@ -24,22 +26,23 @@ const menuItems: DropdownItemData[] = [
 ];
 
 
-
 export const Header: FC<{ className?: string }> = ({className}) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [apartmentOpen, setApartmentOpen] = useState(false);
     const [phoneOpen, setPhoneOpen] = useState(false);
     const [aptAccordionOpen, setAptAccordionOpen] = useState(false);
+    const [isCallMeOpen, setIsCallMeOpen] = useState(false);
     const pathname = usePathname();
 
     const closeAll = () => {
         setMenuOpen(false);
         setApartmentOpen(false);
         setPhoneOpen(false);
+        setIsCallMeOpen(false);
     };
 
     useCloseEsc({
-        isOpen: menuOpen || apartmentOpen || phoneOpen,
+        isOpen: menuOpen || apartmentOpen || phoneOpen || isCallMeOpen,
         onClose: closeAll,
     });
 
@@ -67,7 +70,10 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                                 isOpen={apartmentOpen}
                                 onOpenChange={(open) => {
                                     setApartmentOpen(open);
-                                    if (open) { setMenuOpen(false); setPhoneOpen(false); }
+                                    if (open) {
+                                        setMenuOpen(false);
+                                        setPhoneOpen(false);
+                                    }
                                 }}
                                 isActive={isActive}
                             />
@@ -90,8 +96,12 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                                 isOpen={phoneOpen}
                                 onOpenChange={(open) => {
                                     setPhoneOpen(open);
-                                    if (open) { setMenuOpen(false); setApartmentOpen(false); }
+                                    if (open) {
+                                        setMenuOpen(false);
+                                        setApartmentOpen(false);
+                                    }
                                 }}
+                                onCallMeClick={() => setIsCallMeOpen(true)}
                             />
                         </div>
 
@@ -109,7 +119,7 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                         {/* Desktop right: phone + callback */}
                         <div className={styles.rightActions}>
                             <TextLink href={appRoutes.phone.phoneLink}>{appRoutes.phone.phoneDisplay}</TextLink>
-                            <TextButton onClick={() => true}>ЗАКАЗАТЬ ЗВОНОК</TextButton>
+                            <TextButton onClick={() => setIsCallMeOpen(true)}>ЗАКАЗАТЬ ЗВОНОК</TextButton>
                         </div>
 
                         {/* Mobile right: apartment dropdown */}
@@ -118,7 +128,10 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                                 isOpen={apartmentOpen}
                                 onOpenChange={(open) => {
                                     setApartmentOpen(open);
-                                    if (open) { setMenuOpen(false); setPhoneOpen(false); }
+                                    if (open) {
+                                        setMenuOpen(false);
+                                        setPhoneOpen(false);
+                                    }
                                 }}
                                 isActive={isActive}
                             />
@@ -131,48 +144,59 @@ export const Header: FC<{ className?: string }> = ({className}) => {
             {menuOpen && (
                 <nav className={styles.fullMenu} aria-label="Основная навигация">
                     <div className="header__container">
-                    <div className={styles.fullMenuInner}>
-                        {menuItems.map((item, idx) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''} ${idx === menuItems.length - 1 ? styles.fullMenuItemLast : ''}`}
-                                onClick={closeAll}
-                            >
-                                {item.label}
-                            </Link>
-                        ))}
+                        <div className={styles.fullMenuInner}>
+                            {menuItems.map((item, idx) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={`${styles.fullMenuItem} ${isActive(item.href) ? styles.fullMenuItemActive : ''} ${idx === menuItems.length - 1 ? styles.fullMenuItemLast : ''}`}
+                                    onClick={closeAll}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
 
-                        <div className={styles.mobileApartmentLinks}>
-                            <button
-                                className={`${styles.mobileApartmentTitle} ${aptAccordionOpen ? styles.mobileApartmentTitleOpen : ''}`}
-                                onClick={() => setAptAccordionOpen(prev => !prev)}
-                                aria-expanded={aptAccordionOpen}
-                            >
-                                КВАРТИРЫ
-                                <svg width="12" height="7" viewBox="0 0 12 7" fill="none" className={styles.accordionChevron}>
-                                    <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                                </svg>
-                            </button>
-                            <div className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
-                                <div className={styles.accordionInner}>
-                                    {apartmentOptions.map((item, idx) => (
-                                        <Link
-                                            key={item.value}
-                                            href={item.value}
-                                            className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.value) ? styles.fullMenuItemActive : ''} ${idx === apartmentOptions.length - 1 ? styles.fullMenuItemLast : ''}`}
-                                            onClick={closeAll}
-                                        >
-                                            {item.label}
-                                        </Link>
-                                    ))}
+                            <div className={styles.mobileApartmentLinks}>
+                                <button
+                                    className={`${styles.mobileApartmentTitle} ${aptAccordionOpen ? styles.mobileApartmentTitleOpen : ''}`}
+                                    onClick={() => setAptAccordionOpen(prev => !prev)}
+                                    aria-expanded={aptAccordionOpen}
+                                >
+                                    КВАРТИРЫ
+                                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none"
+                                         className={styles.accordionChevron}>
+                                        <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5"
+                                              strokeLinecap="round"/>
+                                    </svg>
+                                </button>
+                                <div
+                                    className={`${styles.accordionBody} ${aptAccordionOpen ? styles.accordionBodyOpen : ''}`}>
+                                    <div className={styles.accordionInner}>
+                                        {apartmentOptions.map((item, idx) => (
+                                            <Link
+                                                key={item.value}
+                                                href={item.value}
+                                                className={`${styles.fullMenuItem} ${styles.accordionItem} ${isActive(item.value) ? styles.fullMenuItemActive : ''} ${idx === apartmentOptions.length - 1 ? styles.fullMenuItemLast : ''}`}
+                                                onClick={closeAll}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </nav>
             )}
+
+
+            <ModalMain active={isCallMeOpen} setActive={setIsCallMeOpen} closeButton content fullScreen={true}>
+                {isCallMeOpen && (
+                    <CallMeForm/>
+                )}
+            </ModalMain>
+
 
             <div
                 className={`${styles.overlay} ${menuOpen || apartmentOpen || phoneOpen ? styles.overlayVisible : ''}`}
