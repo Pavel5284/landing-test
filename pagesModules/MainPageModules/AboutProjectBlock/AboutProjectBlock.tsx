@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './AboutProjectBlock.module.scss';
 import Image from "next/image"
 import MainImg from './img/MainImg.webp'
@@ -6,15 +8,27 @@ import VideoImg from './img/VideoImage.webp'
 import PlayIcon from './img/PlayIcon.svg'
 
 export const AboutProjectBlock = () => {
+    const handleOpenVideo = () => {
+        const video = document.createElement('video');
+        video.src = '/videos/video.mp4';
+        video.controls = true;
+        video.muted = true;
+        document.body.append(video);
+
+        video.requestFullscreen().then(() => video.play());
+
+        video.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) video.remove();
+        });
+    };
+
     return (
         <section className={styles.aboutProject}>
             <div className='__container'>
                 <div className={styles.wrapper}>
 
-                    {/* Левая колонка — изображение с логотипом поверх */}
                     <div className={styles.imageCol}>
                         <p className={styles.sectionLabel}>О ПРОЕКТЕ</p>
-                        {/* Отдельный враппер для overflow:hidden на изображении */}
                         <div className={styles.heroImgWrap}>
                             <Image
                                 src={MainImg}
@@ -37,7 +51,6 @@ export const AboutProjectBlock = () => {
                         </div>
                     </div>
 
-                    {/* Правая колонка — текстовый контент */}
                     <div className={styles.contentCol}>
                         <span className={styles.accent}/>
 
@@ -60,9 +73,8 @@ export const AboutProjectBlock = () => {
                             ЗАКРЫТОЙ ОХРАНЯЕМОЙ ТЕРРИТОРИИ.
                         </p>
 
-                        {/* Видео: линия + текст + круглое превью */}
                         <div className={styles.videoWrap}>
-                            <div className={styles.video}>
+                            <div className={styles.video} onClick={handleOpenVideo}>
                                 <div className={styles.videoInfo}>
                                     <span className={styles.videoLabel}>ВИДЕО О ПРОЕКТЕ</span>
                                     <span className={styles.videoDuration}>1:25 минут</span>
@@ -70,7 +82,7 @@ export const AboutProjectBlock = () => {
                                 <span className={styles.videoLine}/>
                             </div>
 
-                            <button className={styles.videoThumb} aria-label="Смотреть видео о проекте">
+                            <button className={styles.videoThumb} aria-label="Смотреть видео о проекте" onClick={handleOpenVideo}>
                                 <Image
                                     src={VideoImg}
                                     alt="Превью видео"
