@@ -17,6 +17,7 @@
     "react-select": "^5.10.2",
     "react-transition-group": "^4.4.5",
     "sass": "^1.101.0",
+    "smooth-scrollbar": "^8.8.4",
     "use-mask-input": "^3.10.2",
     "zod": "^4.4.3"
   },

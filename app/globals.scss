@@ -5,23 +5,22 @@
 
 html {
   background: $white-color;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
   font-family: $font;
+  overflow: hidden;
+  height: 100%;
 }
 
 .wrapper {
-  min-height: 100%;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
 
-  overflow: clip;
-  //overflow: hidden;
-  //contain: paint;
-
-  // Прижимаем footer
   > main {
     flex: 1 1 auto;
   }
