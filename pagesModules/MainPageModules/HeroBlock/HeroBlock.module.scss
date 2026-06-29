@@ -2,12 +2,14 @@
 @use '@/common/function' as func;
 
 $hero-offset: 50px;
+$hero-padding-bottom: 20px;
 $hero-max: 970px;
 
 .hero {
-  height: calc(100vh - $hero-offset);
+  height: calc(100vh - $hero-offset - $hero-padding-bottom);
   max-height: $hero-max;
   margin-top: $hero-offset;
+  padding-bottom: $hero-padding-bottom;
   margin-bottom: 100px;
   overflow: hidden;
 }
@@ -23,16 +25,17 @@ $hero-max: 970px;
 
 @supports (height: 100dvh) {
   .hero {
-    height: calc(100dvh - $hero-offset);
+    height: calc(100dvh - $hero-offset - $hero-padding-bottom);
   }
   .wrapper {
-    height: calc(100dvh - $hero-offset);
+    height: calc(100dvh - $hero-offset - $hero-padding-bottom);
   }
 }
 
 .imageFull {
+  position: relative;
   flex: 1 1 0;
-  min-height: 80dvh;
+  min-height: min(80dvh, 500px);
   overflow: hidden;
 
   img {
@@ -42,6 +45,21 @@ $hero-max: 970px;
     object-position: center;
   }
 }
+
+.imgDesktop {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.imgMobile {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
 
 .bottom {
   flex-shrink: 0;
@@ -96,7 +114,7 @@ $hero-max: 970px;
 }
 
 @media (max-width: 360px) {
-  @supports not (height: 100dvh) {
+  @supports (-webkit-touch-callout: none) {
     .hero,
     .wrapper {
       height: -webkit-fill-available;

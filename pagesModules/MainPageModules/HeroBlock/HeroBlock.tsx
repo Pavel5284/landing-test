@@ -1,6 +1,7 @@
 import styles from './HeroBlock.module.scss';
 import Image from "next/image"
 import HeroImg from './img/HeroImg.webp'
+import HeroImgMobile from './img/HeroImgMobile.webp'
 import LogoSvg from './img/INCHAPIN.svg'
 
 export const HeroBlock = () => {
@@ -10,10 +11,20 @@ export const HeroBlock = () => {
                 <div className={styles.wrapper}>
                     <div className={styles.imageFull}>
                         <Image
+                            className={styles.imgDesktop}
                             src={HeroImg}
                             alt="Hero"
-                            width={1760}
-                            height={600}
+                            fill
+                            sizes="100vw"
+                            quality={100}
+                            loading={"lazy"}
+                        />
+                        <Image
+                            className={styles.imgMobile}
+                            src={HeroImgMobile}
+                            alt="Hero"
+                            fill
+                            sizes="100vw"
                             quality={100}
                             loading={"lazy"}
                         />
