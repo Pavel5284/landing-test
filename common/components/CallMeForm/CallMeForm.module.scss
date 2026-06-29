@@ -15,7 +15,7 @@
 
 /* ── Title ─────────────────────────────────────────────── */
 .title {
-  font-size: func.fluid(52, 40, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440), 52, 40);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 120%;
@@ -36,7 +36,6 @@
 .field_wrap {
   position: relative;
   margin-bottom: 28px;
-  // Отступ сверху под плавающий лейбл
   padding-top: 18px;
 }
 
@@ -44,9 +43,8 @@
 .floating_label {
   position: absolute;
   left: 0;
-  // В покое — внутри поля, по вертикали совпадает с текстом
-  top: 18px + 4px; // padding-top field_wrap + небольшой сдвиг
-  font-size: func.fluid(17, 16, 1920, 1440);
+  top: 18px + 4px;
+  @include func.fluid-bp(font-size, (1920, 1440), 17, 16);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 160%;
@@ -76,7 +74,6 @@
   outline: none;
   transition: border-color 0.2s;
 
-  // Скрываем встроенный placeholder — он нужен только как якорь для :placeholder-shown
   &::placeholder {
     color: transparent;
   }
@@ -85,7 +82,6 @@
     border-bottom-color: #1a6ef5;
   }
 
-  // Поднимаем лейбл при фокусе
   &:focus + .floating_label {
     top: 0;
     font-size: 11px;
@@ -94,7 +90,6 @@
     color: #1a6ef5;
   }
 
-  // Оставляем лейбл наверху, когда поле заполнено (placeholder скрыт = есть значение)
   &:not(:placeholder-shown) + .floating_label {
     top: 0;
     font-size: 11px;
@@ -103,7 +98,6 @@
     color: rgba($black-color, 0.4);
   }
 
-  // Приоритет цвета фокуса над состоянием «заполнено»
   &:focus:not(:placeholder-shown) + .floating_label {
     color: #1a6ef5;
   }
@@ -166,17 +160,5 @@
   &:disabled {
     opacity: 0.45;
     cursor: not-allowed;
-  }
-}
-
-@media (max-width: 1440px) {
-  .title {
-    font-size: func.fluid(52, 40, 1920, 1440);
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 120%;
-    color: $black-color;
-    text-align: center;
-    margin: 0 0 50px;
   }
 }

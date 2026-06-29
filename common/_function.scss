@@ -17,15 +17,6 @@
     @return math.div($px, $current) + em;
 }
 
-//Fluid clamp: плавно от $max-size (на $max-width) до $min-size (на $min-width)
-@function fluid($max-size, $min-size, $max-width: 1920, $min-width: 320) {
-    @return clamp(
-        #{$min-size * 1px},
-        calc(#{$min-size * 1px} + #{$max-size - $min-size} * ((100vw - #{$min-width * 1px}) / #{$max-width - $min-width})),
-        #{$max-size * 1px}
-    );
-}
-
 // Миксин: использует брейкпойнты из _breakpoints.scss или свои
 // Примеры:
 //   @include fluid-bp(font-size, 34, 26, 19, 16, 13); — дефолтные брейкпойнты

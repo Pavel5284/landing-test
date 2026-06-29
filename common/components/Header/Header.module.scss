@@ -75,7 +75,7 @@
 
 .fullMenuItem {
   padding: 1rem 0;
-  font-size: func.fluid(20, 16, 1920, 768);
+  @include func.fluid-bp(font-size, (1920, 768), 20, 16);
   font-weight: 500;
   color: $dark-color;
   border-bottom: 1px solid $border-color;
@@ -102,7 +102,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  font-size: func.fluid(20, 16, 1920, 768);
+  @include func.fluid-bp(font-size, (1920, 768), 20, 16);
   font-weight: 500;
   color: $dark-color;
   padding: 1rem 0;
@@ -142,7 +142,7 @@
 
 .accordionItem {
   display: block;
-  font-size: func.fluid(16, 14, 1920, 768);
+  @include func.fluid-bp(font-size, (1920, 768), 16, 14);
 }
 
 .accordionInner {

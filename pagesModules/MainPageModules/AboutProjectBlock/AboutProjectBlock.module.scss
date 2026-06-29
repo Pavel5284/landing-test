@@ -206,8 +206,8 @@
   }
 
   .videoThumb:hover &::after {
-    @include func.fluid-bp(width, (1920, 1440, 768, 360), 155, 100, 90, 89);
-    @include func.fluid-bp(height, (1920, 1440, 768, 360), 155, 100, 90, 89);
+    @include func.fluid-bp(width, (1920, 1440, 768, 360), 155, 120, 90, 89);
+    @include func.fluid-bp(height, (1920, 1440, 768, 360), 155, 120, 90, 89);
     border-color: $white-color;
   }
 }

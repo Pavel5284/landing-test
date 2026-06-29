@@ -3,21 +3,21 @@
 
 
 %seventeen-semibold-template {
-  font-size: func.fluid(17, 13);
+  @include func.fluid-bp(font-size, (1920, 320), 17, 13);
   line-height: normal;
   letter-spacing: 0;
   font-weight: 600;
   color: $dark-color;
 }
 %fifteen-semibold-template {
-  font-size: func.fluid(15, 12);
+  @include func.fluid-bp(font-size, (1920, 320), 15, 12);
   line-height: normal;
   letter-spacing: 0.07em;
   font-weight: 600;
   color: $dark-color;
 }
 %twelve-regular-template {
-  font-size: func.fluid(12, 10);
+  @include func.fluid-bp(font-size, (1920, 320), 12, 10);
   line-height: normal;
   letter-spacing: 0.02em;
   font-weight: 400;

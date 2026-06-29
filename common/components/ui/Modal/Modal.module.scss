@@ -68,7 +68,10 @@
   text-align: left;
   z-index: 1101;
   position: relative;
-  padding: func.fluid(40, 20);
+  @include func.fluid-bp(padding-top, (1920, 320), 40, 20);
+  @include func.fluid-bp(padding-bottom, (1920, 320), 40, 20);
+  @include func.fluid-bp(padding-left, (1920, 320), 40, 20);
+  @include func.fluid-bp(padding-right, (1920, 320), 40, 20);
   border-radius: 12px;
   background-color: $white-color;
   transform: scale(1);

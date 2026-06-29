@@ -53,7 +53,7 @@ $hero-max: 970px;
 }
 
 .text {
-  font-size: func.fluid(31, 26, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 880, 360), 31, 26, 19, 19, 13);
   font-weight: 400;
   color: $accent-color;
   line-height: 140%;
@@ -63,7 +63,7 @@ $hero-max: 970px;
 
 .svgWrapper {
   overflow: hidden;
-  max-width: func.fluid(862, 554, 1920, 1024);
+  @include func.fluid-bp(max-width, (1920, 1024), 862, 554);
 }
 
 .svg {
@@ -85,19 +85,10 @@ $hero-max: 970px;
   to   { transform: translateX(0); }
 }
 
-@media (max-width: 1440px) {
-  .text {
-    font-size: func.fluid(26, 19, 1440, 1024);
-  }
-}
-
 @media (max-width: 880px) {
   .bottom {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .text {
-    font-size: func.fluid(19, 13, 880, 360);
   }
   .svgWrapper {
     max-width: 880px;
