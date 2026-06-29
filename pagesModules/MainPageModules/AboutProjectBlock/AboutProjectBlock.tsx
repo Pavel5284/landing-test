@@ -6,23 +6,32 @@ import MainImg from './img/MainImg.webp'
 import ArrowTop from './img/ArrowTop.svg'
 import VideoImg from './img/VideoImage.webp'
 import PlayIcon from './img/PlayIcon.svg'
-import ModalMain from '@/common/components/ui/Modal/ModalMain';
-import { useState, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 
 export const AboutProjectBlock = () => {
-    const [isVideoOpen, setIsVideoOpen] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const handleOpenVideo = () => setIsVideoOpen(true);
+    const handleOpenVideo = useCallback(() => {
+        const v = document.createElement('video');
+        v.src = '/videos/video.mp4';
+        v.controls = true;
+        v.muted = true;
+        v.autoplay = true;
+        v.setAttribute('playsinline', '');
+        v.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;object-fit:contain;background:#000';
+        document.body.appendChild(v);
 
-    useEffect(() => {
-        if (isVideoOpen) {
-            const v = videoRef.current;
-            const timer = setTimeout(() => {
-                v?.requestFullscreen?.().catch(() => {});
-            }, 100);
-            return () => clearTimeout(timer);
-        }
-    }, [isVideoOpen]);
+        const onExit = () => {
+            if (!document.fullscreenElement) {
+                v.removeEventListener('fullscreenchange', onExit);
+                v.removeEventListener('webkitfullscreenchange', onExit);
+                v.remove();
+            }
+        };
+        v.addEventListener('fullscreenchange', onExit);
+        v.addEventListener('webkitfullscreenchange', onExit);
+
+        v.play();
+        v.requestFullscreen?.().catch(() => {});
+    }, []);
 
     return (
         <>
@@ -108,9 +117,6 @@ export const AboutProjectBlock = () => {
             </div>
             </section>
 
-            <ModalMain active={isVideoOpen} setActive={setIsVideoOpen} closeButton={true} content fullScreen>
-                <video ref={videoRef} src='/videos/video.mp4' controls autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </ModalMain>
         </>
     );
 }
