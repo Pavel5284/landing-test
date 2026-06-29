@@ -1,0 +1,35 @@
+@use '@/common/variables' as *;
+@use '@/common/function' as func;
+
+.wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  padding: 20px 48px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 15, 14, 11);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 1;
+  background: $accent-color;
+  color: $white-color;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.8;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}

@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import {useHookFormMask} from 'use-mask-input';
+import {SubmitButton} from '../ui/SubmitButton/SubmitButton';
 import styles from './CallMeForm.module.scss';
 
 const baseSchema = z.object({
@@ -131,16 +132,7 @@ export const CallMeForm = ({
                     с политикой обработки персональных данных
                 </p>
 
-                {/* Submit */}
-                <div className={styles.btn_wrap}>
-                    <button
-                        type="submit"
-                        className={styles.submit_btn}
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? 'ОТПРАВЛЯЕМ...' : 'ОТПРАВИТЬ'}
-                    </button>
-                </div>
+                <SubmitButton isSubmitting={isSubmitting} />
             </form>
         </div>
     );
