@@ -5,6 +5,9 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import {useHookFormMask} from 'use-mask-input';
 import {SubmitButton} from '../ui/SubmitButton/SubmitButton';
+import {NameField} from './Fields/NameField';
+import {PhoneField} from './Fields/PhoneField';
+import {EmailField} from './Fields/EmailField';
 import styles from './CallMeForm.module.scss';
 
 const baseSchema = z.object({
@@ -77,54 +80,17 @@ export const CallMeForm = ({
                 onSubmit={handleSubmit(handleFormSubmit)}
                 noValidate
             >
-                {/* Name */}
-                <div className={styles.field_wrap}>
-                    <input
-                        {...register('name')}
-                        className={`${styles.input} ${errors.name ? styles.input_error : ''}`}
-                        placeholder=" "
-                        autoComplete="given-name"
-                    />
-                    <label className={styles.floating_label}>ВАШЕ ИМЯ</label>
-                    {errors.name && (
-                        <span className={styles.error_msg}>{errors.name.message}</span>
-                    )}
-                </div>
+                <NameField registration={register('name')} error={errors.name} />
 
-                {/* Phone */}
-                <div className={styles.field_wrap}>
-                    <input
-                        {...registerWithMask('phone', '+7 (999) 999-99-99', {
-                            placeholder: ' ',
-                            autoUnmask: false,
-                        })}
-                        placeholder=" "
-                        className={`${styles.input} ${errors.phone ? styles.input_error : ''}`}
-                        type="tel"
-                        autoComplete="tel"
-                    />
-                    <label className={styles.floating_label}>ТЕЛЕФОН</label>
-                    {errors.phone && (
-                        <span className={styles.error_msg}>{errors.phone.message}</span>
-                    )}
-                </div>
+                <PhoneField
+                    registration={registerWithMask('phone', '+7 (999) 999-99-99', {
+                        placeholder: ' ',
+                        autoUnmask: false,
+                    })}
+                    error={errors.phone}
+                />
 
-                {/* Email */}
-                {!short && (
-                    <div className={styles.field_wrap}>
-                        <input
-                            {...register('email')}
-                            className={`${styles.input} ${errors.email ? styles.input_error : ''}`}
-                            type="email"
-                            placeholder=" "
-                            autoComplete="email"
-                        />
-                        <label className={styles.floating_label}>E-MAIL</label>
-                        {errors.email && (
-                            <span className={styles.error_msg}>{errors.email.message}</span>
-                        )}
-                    </div>
-                )}
+                {!short && <EmailField registration={register('email')} error={errors.email} />}
 
                 {/* Consent note */}
                 <p className={styles.consent_text}>
