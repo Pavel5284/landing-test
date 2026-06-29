@@ -10,7 +10,7 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
-  gap: func.fluid(150, 50, 1920, 360);
+  @include func.fluid-bp(gap, (1920, 360), 150, 50);
 
   align-items: flex-start;
 }
@@ -27,7 +27,7 @@
   position: absolute;
   top: -28px;
   right: 0;
-  font-size: func.fluid(17, 13, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 17, 13, 11);
   font-weight: 400;
   line-height: 140%;
   color: $accent-color;
@@ -59,8 +59,8 @@
   justify-content: center;
 
   /* Круглый фон как на картинке */
-  width: func.fluid(259, 200, 1920, 1440);
-  height: func.fluid(259, 200, 1920, 1440);
+  @include func.fluid-bp(width, 259, 200, 148, 81, 87);
+  @include func.fluid-bp(height, 259, 200, 148, 81, 87);
   background: $accent-color;
   border-radius: 50%;
 
@@ -77,21 +77,21 @@
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
-  gap: func.fluid(50, 20, 1920, 768);
-  padding-top: func.fluid(32, 10, 1920, 360);
+  @include func.fluid-bp(gap, (1920, 768, 360), 50, 20, 10);
+  @include func.fluid-bp(padding-top, (1920, 360), 32, 10);
 }
 
 /* Синяя черта-акцент над заголовком */
 .accent {
   display: block;
-  width: func.fluid(63, 49, 1920, 1440);
-  height: func.fluid(12, 9, 1920, 1440);
+  @include func.fluid-bp(width, (1920, 1440, 360), 63, 49, 35);
+  @include func.fluid-bp(height, (1920, 1440, 360), 12, 9, 6);
   background: $accent-color;
 }
 
 .title {
-  margin-bottom: func.fluid(40, 10, 1920, 360);
-  font-size: func.fluid(34, 26, 1920, 1440);
+  @include func.fluid-bp(margin-bottom, (1920, 360), 40, 10);
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 360), 34, 26, 19, 16);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 140%;
@@ -104,7 +104,7 @@
 
 .description {
   margin: 0;
-  font-size: func.fluid(20, 16, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 360), 20, 16, 12, 11);
   font-weight: 400;
   line-height: 160%;
   letter-spacing: 0;
@@ -149,7 +149,7 @@
 }
 
 .videoLabel {
-  font-size: func.fluid(18, 14, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 18, 14, 10);
   font-weight: 600;
   line-height: 160%;
   letter-spacing: 0;
@@ -158,7 +158,7 @@
 }
 
 .videoDuration {
-  font-size: func.fluid(18, 14, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 18, 14, 13);
   font-weight: 400;
   color: $dark-color;
   opacity: 0.5;
@@ -168,8 +168,8 @@
 /* ─── Круглое превью видео ───────────────────────── */
 .videoThumb {
   position: relative;
-  width: func.fluid(241, 186, 1920, 1440);
-  height: func.fluid(241, 186, 1920, 1440);
+  @include func.fluid-bp(width, (1920, 1440, 768, 360), 241, 186, 133, 131);
+  @include func.fluid-bp(height, (1920, 1440, 768, 360), 241, 186, 133, 131);
   border-radius: 50%;
   overflow: hidden;
   border: none;
@@ -197,8 +197,8 @@
   &::after {
     content: '';
     position: absolute;
-    width: func.fluid(142, 110, 1920, 1440);
-    height: func.fluid(142, 110, 1920, 1440);
+    @include func.fluid-bp(width, (1920, 1440, 768, 360), 142, 110, 79, 77);
+    @include func.fluid-bp(height, (1920, 1440, 768, 360), 142, 110, 79, 77);
     border-radius: 50%;
     border: 1.29px solid $white-color;
     pointer-events: none;
@@ -206,8 +206,8 @@
   }
 
   .videoThumb:hover &::after {
-    width: func.fluid(155, 120, 1920, 1440);
-    height: func.fluid(155, 120, 1920, 1440);
+    @include func.fluid-bp(width, (1920, 1440, 768, 360), 155, 100, 90, 89);
+    @include func.fluid-bp(height, (1920, 1440, 768, 360), 155, 100, 90, 89);
     border-color: $white-color;
   }
 }
@@ -221,117 +221,18 @@
   align-items: center;
   gap: 6px;
   color: $white-color;
-  font-size: func.fluid(18, 14, 1920, 1440);
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 18, 14, 10);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 160%;
 }
 
-@media (max-width: 1440px) {
-
-  .sectionLabel {
-    font-size: func.fluid(13, 11, 1440, 360);
-  }
-
-  .arrow {
-    width: func.fluid(200, 148, 1440, 1024);
-    height: func.fluid(200, 148, 1440, 1024);
-  }
-
-  /* Синяя черта-акцент над заголовком */
-  .accent {
-    width: func.fluid(49, 35, 1440, 360);
-    height: func.fluid(9, 6, 1440, 360);
-  }
-
-  .title {
-    font-size: func.fluid(26, 19, 1440, 768);
-  }
-
-  .description {
-    font-size: func.fluid(16, 12, 1440, 1024);
-  }
-
-  .videoLabel {
-    font-size: func.fluid(14, 10, 1440, 360);
-  }
-
-  .videoDuration {
-    font-size: func.fluid(14, 13, 1440, 360);
-  }
-
-
-  .videoThumb {
-    width: func.fluid(186, 133, 1440, 768);
-    height: func.fluid(186, 133, 1440, 768);
-  }
-
-
-  /* Кнопка PLAY поверх превью */
-  .playBtn {
-    /* Белое кольцо */
-    &::after {
-      width: func.fluid(110, 79, 1440, 768);
-      height: func.fluid(110, 79, 1440, 768);
-    }
-
-    .videoThumb:hover &::after {
-      width: func.fluid(100, 90, 1440, 768);
-      height: func.fluid(100, 90, 1440, 768);
-    }
-  }
-
-  /* Внутренний контент PLAY (иконка + текст) поверх кольца */
-  .playBtnInner {
-    font-size: func.fluid(14, 10, 1440, 360);
-  }
-}
-
-@media (max-width: 1024px) {
-  .arrow {
-    width: func.fluid(148, 81, 1024, 768);
-    height: func.fluid(148, 81, 1024, 768);
-  }
-  .title {
-    font-size: func.fluid(19, 16, 1024, 360);
-  }
-
-  .description {
-    font-size: func.fluid(12, 11, 1024, 360);
-  }
-}
 @media (max-width: 768px) {
-  .contentCol {
-    gap: func.fluid(20, 10, 768, 360);
-  }
   .imageCol{
     margin-left: -20px;
   }
-  .arrow {
-    width: func.fluid(81, 87, 768, 360);
-    height: func.fluid(81, 87, 768, 360);
-  }
-
-  .videoThumb {
-    width: func.fluid(133, 131, 768, 360);
-    height: func.fluid(133, 131, 768, 360);
-  }
-
-
-  /* Кнопка PLAY поверх превью */
-  .playBtn {
-    /* Белое кольцо */
-    &::after {
-      width: func.fluid(79, 77, 768, 360);
-      height: func.fluid(79, 77, 768, 360);
-    }
-
-    .videoThumb:hover &::after {
-      width: func.fluid(90, 89, 768, 360);
-      height: func.fluid(90, 89, 768, 360);
-    }
-  }
 }
+
 @media (max-width: 720px) {
   .wrapper{
     flex-direction: column;

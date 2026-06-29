@@ -1,4 +1,6 @@
 @use "sass:math";
+@use "sass:list";
+@use "sass:meta";
 
 //Percent
 @function percent($px, $from) {
@@ -22,4 +24,46 @@
         calc(#{$min-size * 1px} + #{$max-size - $min-size} * ((100vw - #{$min-width * 1px}) / #{$max-width - $min-width})),
         #{$max-size * 1px}
     );
+}
+
+// Миксин: использует брейкпойнты из _breakpoints.scss или свои
+// Примеры:
+//   @include fluid-bp(font-size, 34, 26, 19, 16, 13); — дефолтные брейкпойнты
+//   @include fluid-bp(font-size, (1920, 1440, 768, 360), 241, 186, 133, 131); — свои
+@mixin fluid-bp($property, $args...) {
+    $bps: (1920, 1440, 1024, 768, 360);
+    $values: $args;
+
+    @if meta.type-of(list.nth($args, 1)) == 'list' {
+        $bps: list.nth($args, 1);
+        $values: ();
+        @for $i from 2 through list.length($args) {
+            $values: list.append($values, list.nth($args, $i), comma);
+        }
+    }
+
+    @if list.length($values) != list.length($bps) {
+        @error "fluid-bp: ожидалось #{list.length($bps)} значений (для #{$bps}), получено #{list.length($values)}";
+    }
+
+    @for $i from 1 to list.length($bps) {
+        $bp1: list.nth($bps, $i);
+        $val1: list.nth($values, $i);
+        $bp2: list.nth($bps, $i + 1);
+        $val2: list.nth($values, $i + 1);
+
+        $clamp: clamp(
+            #{$val2 * 1px},
+            calc(#{$val2 * 1px} + #{$val1 - $val2} * ((100vw - #{$bp2 * 1px}) / #{$bp1 - $bp2})),
+            #{$val1 * 1px}
+        );
+
+        @if $i == 1 {
+            #{$property}: $clamp;
+        } @else {
+            @media (max-width: #{$bp1 * 1px}) {
+                #{$property}: $clamp;
+            }
+        }
+    }
 }
