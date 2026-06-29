@@ -1,5 +1,6 @@
 import style from "./Modal.module.scss";
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {CSSTransition} from 'react-transition-group';
 import Image from "next/image";
 import closeIcon from './closeIcon.svg'
@@ -26,8 +27,26 @@ const ModalMain = ({
   fullScreen,
 }: PropsType) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActive(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [active, setActive]);
+
+  const modal = (
     <CSSTransition
       nodeRef={modalRef}
       in={active}
@@ -77,6 +96,8 @@ const ModalMain = ({
     </div>
     </CSSTransition>
   );
+
+  return mounted ? createPortal(modal, document.body) : null;
 };
 
 export default ModalMain;

@@ -7,11 +7,22 @@ import ArrowTop from './img/ArrowTop.svg'
 import VideoImg from './img/VideoImage.webp'
 import PlayIcon from './img/PlayIcon.svg'
 import ModalMain from '@/common/components/ui/Modal/ModalMain';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export const AboutProjectBlock = () => {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const handleOpenVideo = () => setIsVideoOpen(true);
+
+    useEffect(() => {
+        if (isVideoOpen) {
+            const v = videoRef.current;
+            const timer = setTimeout(() => {
+                v?.requestFullscreen?.().catch(() => {});
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [isVideoOpen]);
 
     return (
         <>
@@ -97,8 +108,8 @@ export const AboutProjectBlock = () => {
             </div>
             </section>
 
-            <ModalMain active={isVideoOpen} setActive={setIsVideoOpen} closeButton={false} content fullScreen>
-                <video src='/videos/video.mp4' controls autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <ModalMain active={isVideoOpen} setActive={setIsVideoOpen} closeButton={true} content fullScreen>
+                <video ref={videoRef} src='/videos/video.mp4' controls autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </ModalMain>
         </>
     );
