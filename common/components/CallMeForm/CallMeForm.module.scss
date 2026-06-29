@@ -7,6 +7,7 @@
   align-items: center;
   width: 100%;
   max-width: 587px;
+  @include func.fluid-bp(max-width, 587, 454, 370, 438, 320);
   margin: 0 auto;
   padding: 48px 24px;
   background: $white-color;
@@ -15,7 +16,7 @@
 
 /* ── Title ─────────────────────────────────────────────── */
 .title {
-  @include func.fluid-bp(font-size, (1920, 1440), 52, 40);
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 360), 52, 40, 28, 20);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 120%;
@@ -44,19 +45,18 @@
   position: absolute;
   left: 0;
   top: 18px + 4px;
-  @include func.fluid-bp(font-size, (1920, 1440), 17, 16);
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 360), 17, 16, 14, 11);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 160%;
   color: $black-color;
   pointer-events: none;
   transform-origin: left top;
-  transition:
-          top 0.22s ease,
-          font-size 0.22s ease,
-          font-weight 0.22s ease,
-          letter-spacing 0.22s ease,
-          color 0.22s ease;
+  transition: top 0.22s ease,
+  font-size 0.22s ease,
+  font-weight 0.22s ease,
+  letter-spacing 0.22s ease,
+  color 0.22s ease;
 }
 
 /* ── Input ──────────────────────────────────────────────── */
@@ -79,7 +79,7 @@
   }
 
   &:focus {
-    border-bottom-color: #1a6ef5;
+    border-bottom-color: $accent-color;
   }
 
   &:focus + .floating_label {
@@ -87,7 +87,7 @@
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: #1a6ef5;
+    color: $accent-color;
   }
 
   &:not(:placeholder-shown) + .floating_label {
@@ -99,7 +99,7 @@
   }
 
   &:focus:not(:placeholder-shown) + .floating_label {
-    color: #1a6ef5;
+    color: $accent-color;
   }
 
   &_error {
@@ -122,10 +122,10 @@
 
 /* ── Consent ────────────────────────────────────────────── */
 .consent_text {
-  font-size: 11px;
-  color: #9b9b9b;
+  @include func.fluid-bp(font-size, (1920, 1440, 1024, 360), 14, 12, 11, 12);
+  color: rgba($black-color, 0.5);
   text-align: center;
-  line-height: 1.6;
+  line-height: 140%;
   margin: 0 0 24px;
 }
 
@@ -136,15 +136,15 @@
 }
 
 .submit_btn {
-  height: 48px;
-  padding: 0 48px;
-  border-radius: 24px;
+  padding: 20px 48px;
+  border-radius: 30px;
   border: none;
   cursor: pointer;
   font-size: 14px;
+  @include func.fluid-bp(font-size, (1920, 1440, 360), 15, 14, 11);
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1;
   background: $accent-color;
   color: $white-color;
   transition: all 0.2s;

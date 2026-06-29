@@ -97,6 +97,7 @@ export const CallMeForm = ({
                             placeholder: ' ',
                             autoUnmask: false,
                         })}
+                        placeholder=" "
                         className={`${styles.input} ${errors.phone ? styles.input_error : ''}`}
                         type="tel"
                         autoComplete="tel"
