@@ -48,7 +48,7 @@
 }
 
 .phoneRight {
-  display: flex;
+  display: none;
 }
 
 /* ── Full-screen nav ── */
@@ -205,8 +205,10 @@
   .rightActions { display: none; }
 
   /* show mobile slots */
-  .mobileLeft  { display: flex; }
-  .mobileRight { display: flex; }
+  .mobileLeft  { display: flex; order: 1; flex: 1; }
+  .phoneRight  { display: flex; order: 2;  flex: 1;}
+  .logo        { order: 3;  flex: 2; }
+  .mobileRight { display: flex; order: 4; flex: 1; justify-content: flex-end; }
 
   .fullMenu { top: 56px; }
   .fullMenuInner { padding: 1rem; }
@@ -220,9 +222,11 @@
 @media (max-width: 570px) {
   .mobileRight { display: none; }
 
-  .phoneRight { order: 2; }
+  .mobileLeft  { flex: 1; }
 
-  .logo { order: 1; }
+  .logo        { order: 1;  flex: 1;}
+
+  .phoneRight  { order: 2; flex: 1; justify-content: flex-end; }
 
   .mobileApartmentLinks {
     display: flex;

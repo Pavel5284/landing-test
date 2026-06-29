@@ -6,24 +6,16 @@ import MainImg from './img/MainImg.webp'
 import ArrowTop from './img/ArrowTop.svg'
 import VideoImg from './img/VideoImage.webp'
 import PlayIcon from './img/PlayIcon.svg'
+import ModalMain from '@/common/components/ui/Modal/ModalMain';
+import { useState } from 'react';
 
 export const AboutProjectBlock = () => {
-    const handleOpenVideo = () => {
-        const video = document.createElement('video');
-        video.src = '/videos/video.mp4';
-        video.controls = true;
-        video.muted = true;
-        document.body.append(video);
-
-        video.requestFullscreen().then(() => video.play());
-
-        video.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) video.remove();
-        });
-    };
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const handleOpenVideo = () => setIsVideoOpen(true);
 
     return (
-        <section className={styles.aboutProject}>
+        <>
+            <section className={styles.aboutProject}>
             <div className='__container'>
                 <div className={styles.wrapper}>
 
@@ -103,6 +95,11 @@ export const AboutProjectBlock = () => {
 
                 </div>
             </div>
-        </section>
+            </section>
+
+            <ModalMain active={isVideoOpen} setActive={setIsVideoOpen} closeButton={false} content fullScreen>
+                <video src='/videos/video.mp4' controls autoPlay muted playsInline style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </ModalMain>
+        </>
     );
 }
