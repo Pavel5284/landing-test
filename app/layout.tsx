@@ -30,9 +30,9 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable}`}
       >
       <body>
+              <Header/>
               <SmoothScrollbar>
                   <div className="wrapper">
-                      <Header/>
                       {children}
                   </div>
               </SmoothScrollbar>
