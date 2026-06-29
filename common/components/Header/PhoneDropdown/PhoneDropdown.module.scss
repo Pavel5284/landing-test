@@ -43,8 +43,29 @@
   flex-direction: column;
   min-width: 200px;
   overflow: hidden;
-  animation: slideDown 0.2s ease;
   z-index: 1001;
+}
+
+.enter {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exitActive {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .phoneDropdownItem {

@@ -40,7 +40,6 @@
   justify-content: center;
   opacity: 1;
   pointer-events: all;
-  transition: 0.5s;
 }
 
 
@@ -60,7 +59,6 @@
   justify-content: center;
   opacity: 1;
   pointer-events: all;
-  transition: 0.5s;
   z-index: 1100;
 }
 
@@ -75,7 +73,6 @@
   border-radius: 12px;
   background-color: $white-color;
   transform: scale(1);
-  transition: 0.4s all;
 }
 
 .modal__content_fullScreen {
@@ -86,6 +83,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ── CSSTransition classes ── */
+
+.enter .modal_active,
+.enter .modal_active_content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.enter .modal__content_active {
+  transform: scale(0.5);
+}
+
+.enterActive .modal_active,
+.enterActive .modal_active_content {
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.4s;
+}
+
+.enterActive .modal__content_active {
+  transform: scale(1);
+  transition: transform 0.4s;
+}
+
+.exit .modal_active,
+.exit .modal_active_content {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.exit .modal__content_active {
+  transform: scale(1);
+}
+
+.exitActive .modal_active,
+.exitActive .modal_active_content {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.exitActive .modal__content_active {
+  transform: scale(0.5);
+  transition: transform 0.4s;
 }
 
 .close__button {
@@ -122,7 +165,6 @@
     justify-content: center;
     opacity: 1;
     pointer-events: all;
-    transition: 0.5s;
     z-index: 1100;
   }
   .modal__content_active {
@@ -131,6 +173,5 @@
     border-radius: 12px;
     background-color: $white-color;
     transform: scale(1);
-    transition: 0.4s all;
   }
 }

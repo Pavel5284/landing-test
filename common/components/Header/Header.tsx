@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {FC, useState} from 'react';
+import {FC, useRef, useState} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import {usePathname} from 'next/navigation';
 import styles from './Header.module.scss';
 import {ApartmentDropdown, apartmentOptions} from './ApartmentDropdown/ApartmentDropdown';
@@ -33,6 +34,8 @@ export const Header: FC<{ className?: string }> = ({className}) => {
     const [aptAccordionOpen, setAptAccordionOpen] = useState(false);
     const [isCallMeOpen, setIsCallMeOpen] = useState(false);
     const pathname = usePathname();
+
+    const menuRef = useRef<HTMLElement>(null);
 
     const closeAll = () => {
         setMenuOpen(false);
@@ -141,8 +144,13 @@ export const Header: FC<{ className?: string }> = ({className}) => {
             </header>
 
             {/* Full-screen nav menu overlay */}
-            {menuOpen && (
-                <nav className={styles.fullMenu} aria-label="Основная навигация">
+            <CSSTransition nodeRef={menuRef} in={menuOpen} timeout={250} unmountOnExit classNames={{
+                enter: styles.menuEnter,
+                enterActive: styles.menuEnterActive,
+                exit: styles.menuExit,
+                exitActive: styles.menuExitActive,
+            }}>
+                <nav ref={menuRef} className={styles.fullMenu} aria-label="Основная навигация">
                     <div className="header__container">
                         <div className={styles.fullMenuInner}>
                             {menuItems.map((item, idx) => (
@@ -188,13 +196,11 @@ export const Header: FC<{ className?: string }> = ({className}) => {
                         </div>
                     </div>
                 </nav>
-            )}
+            </CSSTransition>
 
 
             <ModalMain active={isCallMeOpen} setActive={setIsCallMeOpen} closeButton content fullScreen={true}>
-                {isCallMeOpen && (
-                    <CallMeForm/>
-                )}
+                <CallMeForm/>
             </ModalMain>
 
 

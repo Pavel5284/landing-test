@@ -1,5 +1,6 @@
 import style from "./Modal.module.scss";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useRef } from "react";
+import {CSSTransition} from 'react-transition-group';
 import Image from "next/image";
 import closeIcon from './closeIcon.svg'
 
@@ -12,6 +13,9 @@ type PropsType = {
   dataType?: string;
   fullScreen?: boolean;
 };
+
+const TIMEOUT = 400;
+
 const ModalMain = ({
   active,
   setActive,
@@ -21,18 +25,29 @@ const ModalMain = ({
   dataType,
   fullScreen,
 }: PropsType) => {
-  useEffect(() => {
-    setActive(false);
-  }, []);
+  const modalRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div datatype={dataType}>
-      {content === true ? (
-        <div
-          className={active ? style.modal_active_content : style.modal}
-          onClick={() => setActive(false)}
-        >
+    <CSSTransition
+      nodeRef={modalRef}
+      in={active}
+      timeout={TIMEOUT}
+      unmountOnExit
+      classNames={{
+        enter: style.enter,
+        enterActive: style.enterActive,
+        exit: style.exit,
+        exitActive: style.exitActive,
+      }}
+    >
+      <div ref={modalRef} datatype={dataType}>
+        {content === true ? (
+          <div
+            className={style.modal_active_content}
+            onClick={() => setActive(false)}
+          >
             <div
-              className={`${active ? style.modal__content_active : style.modal__content} ${fullScreen ? style.modal__content_fullScreen : ''}`}
+              className={`${style.modal__content_active} ${fullScreen ? style.modal__content_fullScreen : ''}`}
               onClick={(e) => e.stopPropagation()}
             >
               {children}
@@ -48,11 +63,11 @@ const ModalMain = ({
         </div>
       ) : (
         <div
-          className={active ? style.modal_active : style.modal}
+          className={style.modal_active}
           onClick={() => setActive(false)}
         >
           <div
-            className={`${active ? style.modal__content_active : style.modal__content} ${fullScreen ? style.modal__content_fullScreen : ''}`}
+            className={`${style.modal__content_active} ${fullScreen ? style.modal__content_fullScreen : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {children}
@@ -60,6 +75,7 @@ const ModalMain = ({
         </div>
       )}
     </div>
+    </CSSTransition>
   );
 };
 

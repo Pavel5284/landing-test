@@ -1,6 +1,7 @@
 "use client"
 
 import {FC, useRef} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import styles from './PhoneDropdown.module.scss';
 import {TextLink} from "@/common/components/ui/TextLink/TextLink";
 import {TextButton} from "@/common/components/ui/TextButton/TextButton";
@@ -15,6 +16,7 @@ interface PhoneDropdownProps {
 
 export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange, onCallMeClick}) => {
     const btnRef = useRef<HTMLButtonElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useCloseEsc({
         isOpen,
@@ -35,8 +37,13 @@ export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange, onC
                 </svg>
             </button>
 
-            {isOpen && (
-                <div className={styles.phoneDropdown}>
+            <CSSTransition nodeRef={dropdownRef} in={isOpen} timeout={200} unmountOnExit classNames={{
+                enter: styles.enter,
+                enterActive: styles.enterActive,
+                exit: styles.exit,
+                exitActive: styles.exitActive,
+            }}>
+                <div ref={dropdownRef} className={styles.phoneDropdown}>
                     <TextLink href={appRoutes.phone.phoneLink} className={styles.phoneDropdownItem}>
                         {appRoutes.phone.phoneDisplay}
                     </TextLink>
@@ -50,7 +57,7 @@ export const PhoneDropdown: FC<PhoneDropdownProps> = ({isOpen, onOpenChange, onC
                         ЗАКАЗАТЬ ЗВОНОК
                     </TextButton>
                 </div>
-            )}
+            </CSSTransition>
         </div>
     );
 };
